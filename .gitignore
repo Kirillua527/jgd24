@@ -79,3 +79,7 @@ UpgradeLog*.htm
 *.user
 .DS_Store
 /GamePackage
+
+# BBBB TestResource
+ProjectLight/Assets/KrishnaPalacio/*
+ProjectLight/Assets/KrishnaPalacio.meta
