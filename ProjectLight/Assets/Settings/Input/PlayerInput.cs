@@ -53,6 +53,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DropBomb"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef04ea07-d150-456e-999f-37d4058cabf6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DetonateBomb"",
+                    ""type"": ""Button"",
+                    ""id"": ""c717b2f4-8229-4497-a605-7c43aea97553"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -273,6 +291,50 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""XR"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27c79aa8-f848-44ae-8da2-68db936114af"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DropBomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76288035-ffc7-4290-9f3a-37d5224f35ae"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DropBomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d25a1c66-dad4-44b3-a3f8-8c2abb4ec0cb"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DetonateBomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd8e126f-a27d-4d37-9a95-1be7e8ba294d"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DetonateBomb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -863,6 +925,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_GP_Move = m_GP.FindAction("Move", throwIfNotFound: true);
         m_GP_Look = m_GP.FindAction("Look", throwIfNotFound: true);
         m_GP_Fire = m_GP.FindAction("Fire", throwIfNotFound: true);
+        m_GP_DropBomb = m_GP.FindAction("DropBomb", throwIfNotFound: true);
+        m_GP_DetonateBomb = m_GP.FindAction("DetonateBomb", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -939,6 +1003,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_GP_Move;
     private readonly InputAction m_GP_Look;
     private readonly InputAction m_GP_Fire;
+    private readonly InputAction m_GP_DropBomb;
+    private readonly InputAction m_GP_DetonateBomb;
     public struct GPActions
     {
         private @PlayerInput m_Wrapper;
@@ -946,6 +1012,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_GP_Move;
         public InputAction @Look => m_Wrapper.m_GP_Look;
         public InputAction @Fire => m_Wrapper.m_GP_Fire;
+        public InputAction @DropBomb => m_Wrapper.m_GP_DropBomb;
+        public InputAction @DetonateBomb => m_Wrapper.m_GP_DetonateBomb;
         public InputActionMap Get() { return m_Wrapper.m_GP; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -964,6 +1032,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @DropBomb.started += instance.OnDropBomb;
+            @DropBomb.performed += instance.OnDropBomb;
+            @DropBomb.canceled += instance.OnDropBomb;
+            @DetonateBomb.started += instance.OnDetonateBomb;
+            @DetonateBomb.performed += instance.OnDetonateBomb;
+            @DetonateBomb.canceled += instance.OnDetonateBomb;
         }
 
         private void UnregisterCallbacks(IGPActions instance)
@@ -977,6 +1051,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @DropBomb.started -= instance.OnDropBomb;
+            @DropBomb.performed -= instance.OnDropBomb;
+            @DropBomb.canceled -= instance.OnDropBomb;
+            @DetonateBomb.started -= instance.OnDetonateBomb;
+            @DetonateBomb.performed -= instance.OnDetonateBomb;
+            @DetonateBomb.canceled -= instance.OnDetonateBomb;
         }
 
         public void RemoveCallbacks(IGPActions instance)
@@ -1162,6 +1242,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnDropBomb(InputAction.CallbackContext context);
+        void OnDetonateBomb(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

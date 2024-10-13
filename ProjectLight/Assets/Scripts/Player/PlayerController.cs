@@ -21,11 +21,19 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         m_player_input.Enable();
+
+        m_player_input.GP.DropBomb.performed -= DropABomb;
+        m_player_input.GP.DropBomb.performed += DropABomb;
+        m_player_input.GP.DetonateBomb.performed -= DetonateAllBombs;
+        m_player_input.GP.DetonateBomb.performed += DetonateAllBombs;
     }
 
     private void OnDisable()
     {
         m_player_input.Disable();
+
+        m_player_input.GP.DropBomb.performed -= DropABomb;
+        m_player_input.GP.DetonateBomb.performed -= DetonateAllBombs;
     }
 
     public void Update()
@@ -50,5 +58,15 @@ public class PlayerController : MonoBehaviour
             float2 movement_input = math.normalize(new float2(m_input_movement.x, m_input_movement.y));
             m_rigidbody.MovePosition(m_rigidbody.position + (new Vector2(movement_input.x, movement_input.y)) * m_speed * Time.deltaTime);
         }
+    }
+
+    private void DropABomb(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        BombManager.GetInstance().DropABomb(transform);
+    }
+
+    private void DetonateAllBombs(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        BombManager.GetInstance().DetonateAllBombs();
     }
 }
