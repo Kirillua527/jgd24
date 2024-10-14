@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    [SerializeField]  private float     m_explosion_range = 5f;
-    [SerializeField]  private float     m_explosion_width = 0.5f;
-    [SerializeField]  private float     m_ray_visible_duration = 1.0f;
-    [SerializeField]  private int       m_ray_count_per_direction = 3;
-    [SerializeField]  private LayerMask m_ray_layer_mask;
+    [SerializeField] private int m_damage = 1;
+
+    [SerializeField] private float     m_explosion_range = 5f;
+    [SerializeField] private float     m_explosion_width = 0.5f;
+    [SerializeField] private float     m_ray_visible_duration = 1.0f;
+    [SerializeField] private int       m_ray_count_per_direction = 3;
+    [SerializeField] private LayerMask m_ray_layer_mask;
 
     private float m_ray_spacing = 0.1f;
 
@@ -39,6 +41,12 @@ public class Bomb : MonoBehaviour
             Vector2 ray_origin = origin + offsetMultiplier * perpendicularOffset;
 
             RaycastHit2D hit = Physics2D.Raycast(ray_origin, base_direction, m_explosion_range, m_ray_layer_mask);
+
+            BombDamage damageable = hit.collider?.GetComponent<BombDamage>();
+            if (damageable != null)
+            {
+                damageable.OnHit(m_damage);
+            }
 
             // debug draw
             StartCoroutine(VisualizeRay(ray_origin, base_direction * m_explosion_range, m_ray_visible_duration));

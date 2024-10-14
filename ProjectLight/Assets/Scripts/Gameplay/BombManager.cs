@@ -70,7 +70,7 @@ public class BombManager : MonoBehaviour
 
         foreach (Bomb bomb in m_bombs)
         {
-            Destroy(bomb.gameObject);
+            Destroy(bomb.gameObject);   // todo
         }
 
         m_bombs.Clear();
