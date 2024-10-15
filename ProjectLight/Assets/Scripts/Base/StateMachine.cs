@@ -1,8 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
     IState currentState;
+
+    public IState CurrentState => currentState;
+
+    protected Dictionary<System.Type, IState> stateTable;
 
     void Update()
     {
@@ -19,5 +24,10 @@ public class StateMachine : MonoBehaviour
     {
         currentState.Exit();
         SwitchOn(newState);
+    }
+
+    public void ChangeState(System.Type newStateType)
+    {
+        ChangeState(stateTable[newStateType]);
     }
 }

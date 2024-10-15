@@ -15,7 +15,16 @@ public class Launcher : MonoBehaviour
 
     void Start()
     {
+        InvokeRepeating("Launch", 0, launcherStat.IntervalLaunchTime);
+    }
 
+    void Update()
+    {
+        if (currentLaunchQuantity >= launcherStat.BulletQuantity)
+        {
+            CancelInvoke("Launch");
+            Destroy(gameObject);
+        }
     }
 
     public void Init(LauncherStat launcherStat)
