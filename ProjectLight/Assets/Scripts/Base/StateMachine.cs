@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    IState currentState;
+    protected IState currentState = null;
 
     public IState CurrentState => currentState;
 
