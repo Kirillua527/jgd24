@@ -40,7 +40,7 @@ public class BombManager : MonoBehaviour
         }
     }
 
-    public void DropABomb(Transform transform)
+    public void PlantABomb(Transform transform)
     {
         if (m_bomb_prefab != null)
         {
