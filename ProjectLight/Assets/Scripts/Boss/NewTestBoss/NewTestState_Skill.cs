@@ -26,7 +26,10 @@ public class NewTestState_Skill : NewTestState
                 BulletSkill bulletSkill = (BulletSkill) skill;
                 foreach (LauncherStat launcherStat in bulletSkill.launcherStats)
                 {
-                    GameObject launcher = Instantiate(bulletSkill.launcherPrefab, stateMachine.transform.position, Quaternion.identity);
+                    Quaternion bulletRotation = bulletSkill.aimToPlayer 
+                    ? Quaternion.LookRotation(Vector3.forward, stateMachine.GetPlayerPosition() - (Vector2)stateMachine.transform.position)
+                    : Quaternion.identity;
+                    GameObject launcher = Instantiate(bulletSkill.launcherPrefab, stateMachine.transform.position, bulletRotation);
                     launcher.GetComponent<Launcher>().Init(launcherStat);
                 }
             }

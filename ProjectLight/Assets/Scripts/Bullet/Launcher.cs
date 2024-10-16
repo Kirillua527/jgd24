@@ -36,10 +36,12 @@ public class Launcher : MonoBehaviour
 
     void Launch()
     {
-        GameObject bulletObject = Instantiate(launcherStat.BulletPrefab, transform.position, Quaternion.Euler(0, 0, launcherStat.InitLaunchAngle));
+        // 子弹角度为发射器角度加上当前发射角度
+        GameObject bulletObject = Instantiate(launcherStat.BulletPrefab, transform.position, Quaternion.identity);
         bulletObject.GetComponent<Bullet>().SetBulletStat(launcherStat);
         bulletObject.transform.localScale *= launcherStat.BulletSize;
-        bulletObject.transform.rotation = Quaternion.Euler(0, 0, launcherStat.InitLaunchAngle + currentLaunchAngle);
+        bulletObject.transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + launcherStat.InitLaunchAngle + currentLaunchAngle);
+        Debug.Log("Launcher Angle" + transform.rotation.eulerAngles.z);
         currentLaunchQuantity++;
         currentLaunchAngle += launcherStat.IntervalLaunchAngle;
     }
