@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402bd0856da958145819b00828bddb81, type: 3}
   m_Name: SpiderState_Idle
   m_EditorClassIdentifier: 
-  idleTime: 5
-  timer: 0
+  idleTime: 2
+  timer: 1.8502072

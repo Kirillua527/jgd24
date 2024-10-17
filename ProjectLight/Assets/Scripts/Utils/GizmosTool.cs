@@ -40,6 +40,10 @@ public static class GizmosTool
         {
             Gizmos.DrawLine(currentP, origin);
         }
+    }
 
+    public static void DrawWireSemicircle2D(Vector2 origin, Vector2 direction, float radius, int angle)
+    {
+        DrawWireSemicircle(origin, direction, radius, angle, Vector3.forward);
     }
 }

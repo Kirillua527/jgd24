@@ -1,4 +1,7 @@
+using System.Security.AccessControl;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(menuName = "StateMachine/SpiderState/Move", fileName = "SpiderState_Move")]
 public class SpiderState_Move : SpiderState
@@ -19,32 +22,37 @@ public class SpiderState_Move : SpiderState
         playerPos = stateMachine.GetPlayerPosition();
         Vector2 currentPos = stateMachine.transform.position;
 
+        
         // 计算目标点
-        Vector2 intersectionPointWithExternalCircle = GetIntersectionPointWithCircle(playerPos, targetAreaExternalRadius, currentPos);
-        Vector2 intersectionPointWithInnerCircle = GetIntersectionPointWithCircle(playerPos, targetAreaInnerRadius, currentPos);
-        (Vector2, Vector2) tangnetPoints = CalculateTangent(playerPos, targetAreaExternalRadius, currentPos);
-        Vector4 boundingBox = CalculateBoundingBox(intersectionPointWithExternalCircle, intersectionPointWithInnerCircle, tangnetPoints.Item1, tangnetPoints.Item2);
+        Vector2 intersectionPointWithExternalCircle = MathTool.CalculateIntersectionPointWithCircle(playerPos, targetAreaExternalRadius, currentPos);
+        Vector2 intersectionPointWithInnerCircle = MathTool.CalculateIntersectionPointWithCircle(playerPos, targetAreaInnerRadius, currentPos);
 
-        targetPos = GetRandomPointInBoudingBox(boundingBox);
-        /*
-        while(!IsPointInRing(targetPos, playerPos, targetAreaInnerRadius, targetAreaExternalRadius) || !IsPointInQuadrilateral(targetPos, intersectionPointWithExternalCircle, playerPos, tangnetPoints.Item1, tangnetPoints.Item2))
+        if ((playerPos - currentPos).magnitude <= targetAreaExternalRadius)
         {
-            targetPos = GetRandomPointInBoudingBox(boundingBox);
+            currentPos = playerPos + (currentPos - playerPos).normalized * targetAreaExternalRadius;
         }
-        */
-
-
+        
+        // 计算目标点
+        (float, float) externalAngleRange =
+            MathTool.CalculateAngleRange(playerPos, targetAreaExternalRadius, currentPos);
+        (float, float) innerAngleRange = MathTool.CalculateAngleRange(playerPos, targetAreaInnerRadius, currentPos);
+        float targetAngle = UnityEngine.Random.Range(externalAngleRange.Item1, externalAngleRange.Item2);
+        Debug.Log("targetAngle: " + targetAngle);
+        (float, float) lengthRange = GetLengthRange(playerPos, targetAreaExternalRadius, targetAreaInnerRadius,
+            currentPos, targetAngle);
+        float targetLength = UnityEngine.Random.Range(lengthRange.Item1, lengthRange.Item2);
+        Vector2 unitVectorPC = (playerPos - currentPos).normalized;
+        // 旋转向量
+        Vector2 targetVector = new Vector2(
+            unitVectorPC.x * Mathf.Cos(targetAngle) - unitVectorPC.y * Mathf.Sin(targetAngle),
+            unitVectorPC.x * Mathf.Sin(targetAngle) + unitVectorPC.y * Mathf.Cos(targetAngle));
+        targetPos = currentPos + targetVector * targetLength;
+        // Debug.Log(targetPos);
+        
         // 绘制路径
+        Debug.DrawLine(currentPos, currentPos + targetVector * lengthRange.Item2, Color.blue, 1f);
         Debug.DrawLine(currentPos, intersectionPointWithExternalCircle, Color.red, 1f);
-        Debug.DrawLine(currentPos, tangnetPoints.Item1, Color.green, 1f);
-        Debug.DrawLine(currentPos, tangnetPoints.Item2, Color.green, 1f);
-        Debug.DrawLine(currentPos, targetPos, Color.yellow, 1f);
-
-        // 绘制包围盒
-        Debug.DrawLine(new Vector2(boundingBox.x, boundingBox.z), new Vector2(boundingBox.x, boundingBox.w), Color.blue, 1f);
-        Debug.DrawLine(new Vector2(boundingBox.x, boundingBox.z), new Vector2(boundingBox.y, boundingBox.z), Color.blue, 1f);
-        Debug.DrawLine(new Vector2(boundingBox.x, boundingBox.w), new Vector2(boundingBox.y, boundingBox.w), Color.blue, 1f);
-        Debug.DrawLine(new Vector2(boundingBox.y, boundingBox.z), new Vector2(boundingBox.y, boundingBox.w), Color.blue, 1f);
+        // Debug.DrawLine(currentPos, targetPos, Color.yellow, 1f);
     }
 
     public override void Execute()
@@ -52,8 +60,9 @@ public class SpiderState_Move : SpiderState
         base.Execute();
 
         // 移动到目标点
-        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, targetPos, stateMachine.moveSpeed * Time.deltaTime));
+        // stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, targetPos, stateMachine.moveSpeed * Time.deltaTime));
 
+        stateMachine.GoToNextState();
         // 判断是否到达目标点
         if(Vector2.Distance(stateMachine.transform.position, targetPos) <= 0.1f)
         {
@@ -61,99 +70,38 @@ public class SpiderState_Move : SpiderState
         }
     }
 
-    private (Vector2, Vector2) CalculateTangent(Vector2 center, float radius, Vector2 point)
+    private (float, float) GetLengthRange(Vector2 center, float externalRadius, float innerRadius, Vector2 point,
+        float angle)
     {
-        Vector2 pc = point - center;
-        float distance = pc.magnitude;
+        (float, float) externalAngleRange = MathTool.CalculateAngleRange(center, externalRadius, point);
+        Debug.Log("externalAngleRange: " + externalAngleRange);
+        (float, float) innerAngleRange = MathTool.CalculateAngleRange(center, innerRadius, point);
+        Debug.Log("innerAngleRange" + innerAngleRange);
 
-        float tangnetLineLength = Mathf.Sqrt(distance * distance - radius * radius);
-
-        if(distance <= radius)
+        if (angle > innerAngleRange.Item1 && angle < innerAngleRange.Item2)
         {
-            Debug.LogError("Point is inside the circle");
-            return (Vector2.zero, Vector2.zero);
+            float externalLength = MathTool.CalculateDistanceToCircle(center, externalRadius, point, angle);
+            float innerLength = MathTool.CalculateDistanceToCircle(center, innerRadius, point, angle);
+            Debug.Log("(externalLength, innerLength): " + (externalLength, innerLength));
+            return (externalLength, innerLength);
         }
-        
-        float ux = (center.x - point.x) / distance;
-        float uy = (center.y - point.y) / distance;
-
-        float angle = Mathf.Asin(radius / distance);
-
-        float q1x = ux * Mathf.Cos(angle) - uy * Mathf.Sin(angle);
-        float q1y = ux * Mathf.Sin(angle) + uy * Mathf.Cos(angle);
-        float q2x = ux * Mathf.Cos(-angle) - uy * Mathf.Sin(-angle);
-        float q2y = ux * Mathf.Sin(-angle) + uy * Mathf.Cos(-angle);
-
-        q1x = q1x * tangnetLineLength + point.x;
-        q1y = q1y * tangnetLineLength + point.y;
-        q2x = q2x * tangnetLineLength + point.x;
-        q2y = q2y * tangnetLineLength + point.y;
-
-        return (new Vector2(q1x, q1y), new Vector2(q2x, q2y));
-    }
-
-    private bool IsPointInRing(Vector2 p, Vector2 center, float innerRadius, float externalRadius)
-    {
-        float distance = Vector2.Distance(p, center);
-
-        return distance >= innerRadius && distance <= externalRadius;
-    }
-
-    private bool IsPointInQuadrilateral(Vector2 p, Vector2 a, Vector2 b, Vector2 c, Vector2 d)
-    {
-        Vector2 ab = b - a;
-        Vector2 bc = c - b;
-        Vector2 cd = d - c;
-        Vector2 da = a - d;
-
-        Vector2 ap = p - a;
-        Vector2 bp = p - b;
-        Vector2 cp = p - c;
-        Vector2 dp = p - d;
-
-        // 计算叉乘
-        float cross1 = ab.x * ap.y - ab.y * ap.x;
-        float cross2 = bc.x * bp.y - bc.y * bp.x;
-        float cross3 = cd.x * cp.y - cd.y * cp.x;
-        float cross4 = da.x * dp.y - da.y * dp.x;
-
-        return (cross1 >= 0 && cross2 >= 0 && cross3 >= 0 && cross4 >= 0) || (cross1 <= 0 && cross2 <= 0 && cross3 <= 0 && cross4 <= 0);
-    }
-
-    private Vector4 CalculateBoundingBox(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
-    {
-        float minX = Mathf.Min(a.x, b.x, c.x, d.x);
-        float maxX = Mathf.Max(a.x, b.x, c.x, d.x);
-        float minY = Mathf.Min(a.y, b.y, c.y, d.y);
-        float maxY = Mathf.Max(a.y, b.y, c.y, d.y);
-
-        return new Vector4(minX, maxX, minY, maxY);
-    }
-
-    private Vector2 GetRandomPointInBoudingBox(Vector4 boundingBox)
-    {
-        float x = Random.Range(boundingBox.x, boundingBox.y);
-        float y = Random.Range(boundingBox.z, boundingBox.w);
-
-        return new Vector2(x, y);
-    }
-
-    private Vector2 GetIntersectionPointWithCircle(Vector2 center, float radius, Vector2 point)
-    {
-        float dx = point.x - center.x;
-        float dy = point.y - center.y;
-        float distance = Mathf.Sqrt(dx * dx + dy * dy);
-
-        if(distance <= radius)
+        else if (angle <= innerAngleRange.Item1 && angle >= externalAngleRange.Item1 ||
+                 angle >= innerAngleRange.Item2 && angle <= externalAngleRange.Item2)
         {
-            Debug.LogError("Point is inside the circle");
+            float externalLength = MathTool.CalculateDistanceToCircle(center, externalRadius, point, angle);
+            
+            float distance = (center - point).magnitude;
+            float baseAngle = Mathf.Asin(externalRadius / distance);
+            float externalAngle = baseAngle - angle;
+            float externalTangentLineLength = Mathf.Sqrt(distance * distance - externalRadius * externalRadius);
+            float innerLength = externalTangentLineLength / Mathf.Cos(externalAngle);
+            Debug.Log("(externalLength, innerLength): " + (externalLength, innerLength));
+            return (externalLength, innerLength);
         }
-
-        float angle = Mathf.Atan2(dy, dx);
-
-        float intersectionX = center.x + radius * Mathf.Cos(angle);
-        float intersectionY = center.y + radius * Mathf.Sin(angle);
-
-        return new Vector2(intersectionX, intersectionY);
+        else
+        {
+            Debug.LogError("Invalid Angle:" + angle);
+            return (0, 0);
+        }
     }
 }
