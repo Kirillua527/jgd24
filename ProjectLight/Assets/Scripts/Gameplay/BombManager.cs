@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BombManager : MonoBehaviour
 {
+    private bool m_is_detonating = false;
+
     private static BombManager s_instance;
     private BombManager() { }
     public static BombManager GetInstance() // => s_instance;
@@ -52,7 +54,7 @@ public class BombManager : MonoBehaviour
 
     public void DetonateAllBombs()
     {
-        if (m_bombs.Count > 0)
+        if (m_bombs.Count > 0 && !m_is_detonating)
         {
             StartCoroutine(Explode());
             GameplayEventManager.TriggerEvent("OnDetonateAllBombs");
@@ -61,6 +63,8 @@ public class BombManager : MonoBehaviour
 
     private IEnumerator Explode()
     {
+        m_is_detonating = true;
+
         foreach (Bomb bomb in m_bombs)
         {
             bomb.Explode();
@@ -74,5 +78,7 @@ public class BombManager : MonoBehaviour
         }
 
         m_bombs.Clear();
+
+        m_is_detonating = false;
     }
 }
