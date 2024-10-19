@@ -55,7 +55,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DropBomb"",
+                    ""name"": ""PlantBomb"",
                     ""type"": ""Button"",
                     ""id"": ""ef04ea07-d150-456e-999f-37d4058cabf6"",
                     ""expectedControlType"": ""Button"",
@@ -298,10 +298,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""27c79aa8-f848-44ae-8da2-68db936114af"",
                     ""path"": ""<Keyboard>/j"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""DropBomb"",
+                    ""action"": ""PlantBomb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -309,10 +309,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""76288035-ffc7-4290-9f3a-37d5224f35ae"",
                     ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""DropBomb"",
+                    ""action"": ""PlantBomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18365040-607e-4ad4-9df8-d830f663db44"",
+                    ""path"": ""<Joystick>/trigger"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""PlantBomb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -334,6 +345,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
+                    ""action"": ""DetonateBomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f299a60-fda2-452e-9f68-fcb63018bba7"",
+                    ""path"": ""<Joystick>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
                     ""action"": ""DetonateBomb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -925,7 +947,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_GP_Move = m_GP.FindAction("Move", throwIfNotFound: true);
         m_GP_Look = m_GP.FindAction("Look", throwIfNotFound: true);
         m_GP_Fire = m_GP.FindAction("Fire", throwIfNotFound: true);
-        m_GP_DropBomb = m_GP.FindAction("DropBomb", throwIfNotFound: true);
+        m_GP_PlantBomb = m_GP.FindAction("PlantBomb", throwIfNotFound: true);
         m_GP_DetonateBomb = m_GP.FindAction("DetonateBomb", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1003,7 +1025,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_GP_Move;
     private readonly InputAction m_GP_Look;
     private readonly InputAction m_GP_Fire;
-    private readonly InputAction m_GP_DropBomb;
+    private readonly InputAction m_GP_PlantBomb;
     private readonly InputAction m_GP_DetonateBomb;
     public struct GPActions
     {
@@ -1012,7 +1034,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_GP_Move;
         public InputAction @Look => m_Wrapper.m_GP_Look;
         public InputAction @Fire => m_Wrapper.m_GP_Fire;
-        public InputAction @DropBomb => m_Wrapper.m_GP_DropBomb;
+        public InputAction @PlantBomb => m_Wrapper.m_GP_PlantBomb;
         public InputAction @DetonateBomb => m_Wrapper.m_GP_DetonateBomb;
         public InputActionMap Get() { return m_Wrapper.m_GP; }
         public void Enable() { Get().Enable(); }
@@ -1032,9 +1054,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
-            @DropBomb.started += instance.OnDropBomb;
-            @DropBomb.performed += instance.OnDropBomb;
-            @DropBomb.canceled += instance.OnDropBomb;
+            @PlantBomb.started += instance.OnPlantBomb;
+            @PlantBomb.performed += instance.OnPlantBomb;
+            @PlantBomb.canceled += instance.OnPlantBomb;
             @DetonateBomb.started += instance.OnDetonateBomb;
             @DetonateBomb.performed += instance.OnDetonateBomb;
             @DetonateBomb.canceled += instance.OnDetonateBomb;
@@ -1051,9 +1073,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
-            @DropBomb.started -= instance.OnDropBomb;
-            @DropBomb.performed -= instance.OnDropBomb;
-            @DropBomb.canceled -= instance.OnDropBomb;
+            @PlantBomb.started -= instance.OnPlantBomb;
+            @PlantBomb.performed -= instance.OnPlantBomb;
+            @PlantBomb.canceled -= instance.OnPlantBomb;
             @DetonateBomb.started -= instance.OnDetonateBomb;
             @DetonateBomb.performed -= instance.OnDetonateBomb;
             @DetonateBomb.canceled -= instance.OnDetonateBomb;
@@ -1242,7 +1264,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
-        void OnDropBomb(InputAction.CallbackContext context);
+        void OnPlantBomb(InputAction.CallbackContext context);
         void OnDetonateBomb(InputAction.CallbackContext context);
     }
     public interface IUIActions

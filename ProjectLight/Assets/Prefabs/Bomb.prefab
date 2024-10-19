@@ -45,13 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fab10fbfd57d2548bcfcc0caf72d145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_damage: 1
   m_explosion_range: 10
   m_explosion_width: 1
   m_ray_visible_duration: 1
   m_ray_count_per_direction: 3
   m_ray_layer_mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!1 &7630843625597929767
 GameObject:
   m_ObjectHideFlags: 0
