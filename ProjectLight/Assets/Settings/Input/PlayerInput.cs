@@ -71,6 +71,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""62e97481-21a0-4093-a507-47fbe7a09693"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -357,6 +366,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""DetonateBomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b2ddb319-fada-4b32-b583-46b7507f50d8"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -949,6 +969,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_GP_Fire = m_GP.FindAction("Fire", throwIfNotFound: true);
         m_GP_PlantBomb = m_GP.FindAction("PlantBomb", throwIfNotFound: true);
         m_GP_DetonateBomb = m_GP.FindAction("DetonateBomb", throwIfNotFound: true);
+        m_GP_PauseGame = m_GP.FindAction("PauseGame", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1027,6 +1048,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_GP_Fire;
     private readonly InputAction m_GP_PlantBomb;
     private readonly InputAction m_GP_DetonateBomb;
+    private readonly InputAction m_GP_PauseGame;
     public struct GPActions
     {
         private @PlayerInput m_Wrapper;
@@ -1036,6 +1058,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_GP_Fire;
         public InputAction @PlantBomb => m_Wrapper.m_GP_PlantBomb;
         public InputAction @DetonateBomb => m_Wrapper.m_GP_DetonateBomb;
+        public InputAction @PauseGame => m_Wrapper.m_GP_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_GP; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1060,6 +1083,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DetonateBomb.started += instance.OnDetonateBomb;
             @DetonateBomb.performed += instance.OnDetonateBomb;
             @DetonateBomb.canceled += instance.OnDetonateBomb;
+            @PauseGame.started += instance.OnPauseGame;
+            @PauseGame.performed += instance.OnPauseGame;
+            @PauseGame.canceled += instance.OnPauseGame;
         }
 
         private void UnregisterCallbacks(IGPActions instance)
@@ -1079,6 +1105,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DetonateBomb.started -= instance.OnDetonateBomb;
             @DetonateBomb.performed -= instance.OnDetonateBomb;
             @DetonateBomb.canceled -= instance.OnDetonateBomb;
+            @PauseGame.started -= instance.OnPauseGame;
+            @PauseGame.performed -= instance.OnPauseGame;
+            @PauseGame.canceled -= instance.OnPauseGame;
         }
 
         public void RemoveCallbacks(IGPActions instance)
@@ -1266,6 +1295,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnPlantBomb(InputAction.CallbackContext context);
         void OnDetonateBomb(InputAction.CallbackContext context);
+        void OnPauseGame(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

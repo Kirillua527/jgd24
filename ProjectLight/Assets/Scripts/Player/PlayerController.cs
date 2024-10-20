@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     private InputAction m_plant_a_bomb_action;
     private InputAction m_detonate_all_bombs_action;
 
+    private InputAction m_pause_game_action;
+    [SerializeField] private GameObject m_pause_panel = null;
+    [SerializeField] private UILogic m_ui_logic;
+
     // movement
     [SerializeField, ReadOnly] private Vector2 m_input_movement;
 
@@ -46,6 +50,7 @@ public class PlayerController : MonoBehaviour
         m_player_input = new PlayerInput();
         m_plant_a_bomb_action = m_player_input.GP.PlantBomb;
         m_detonate_all_bombs_action = m_player_input.GP.DetonateBomb;
+        m_pause_game_action = m_player_input.GP.PauseGame;
     }
 
     private void OnEnable()
@@ -57,6 +62,8 @@ public class PlayerController : MonoBehaviour
         m_plant_a_bomb_action.canceled += PlantABombCanceled;
 
         m_detonate_all_bombs_action.performed += DetonateAllBombs;
+
+        m_pause_game_action.performed += PauseGame;
     }
 
     private void OnDisable()
@@ -66,6 +73,8 @@ public class PlayerController : MonoBehaviour
         m_plant_a_bomb_action.canceled -= PlantABombCanceled;
 
         m_detonate_all_bombs_action.performed -= DetonateAllBombs;
+
+        m_pause_game_action.performed -= PauseGame;
 
         m_player_input.Disable();
     }
@@ -159,5 +168,11 @@ public class PlayerController : MonoBehaviour
         {
             m_planting_progress_line.enabled = false;
         }
+    }
+
+    private void PauseGame(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        m_ui_logic.PauseGame();
+        m_ui_logic.ShowPanel(true);
     }
 }
