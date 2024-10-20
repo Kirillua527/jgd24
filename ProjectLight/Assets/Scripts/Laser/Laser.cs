@@ -54,24 +54,24 @@ public class Laser : MonoBehaviour
     void Update()
     {
         // Test: 鼠标方向射线
-        // Vector2 mousePosition;
-        // if (Mouse.current != null)
-        // {
-        //     mousePosition = Mouse.current.position.ReadValue();
-        // }
-        // else
-        // {
-        //     mousePosition = Vector2.zero;
-        // }
+        Vector2 mousePosition;
+        if (Mouse.current != null)
+        {
+            mousePosition = Mouse.current.position.ReadValue();
+        }
+        else
+        {
+            mousePosition = Vector2.zero;
+        }
 
-        // Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(
-        //     new Vector3(mousePosition.x, mousePosition.y, 0)
-        // );
-        // Vector2 startDirection = new Vector2(
-        //     worldMousePosition.x - transform.position.x,
-        //     worldMousePosition.y - transform.position.y
-        // ).normalized;
-        Vector2 startDirection =  AngleToUnitVector2D(testAngle);
+        Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(
+            new Vector3(mousePosition.x, mousePosition.y, 0)
+        );
+        Vector2 startDirection = new Vector2(
+            worldMousePosition.x - transform.position.x,
+            worldMousePosition.y - transform.position.y
+        ).normalized;
+        // Vector2 startDirection =  AngleToUnitVector2D(testAngle);
 
         LaserRay(transform.position, startDirection);
     }
@@ -115,6 +115,21 @@ public class Laser : MonoBehaviour
                 currentPosion = hit.point + OFFSET * rayDirection;
 
                 hit = Physics2D.Raycast(currentPosion, rayDirection, MAX_LENGTH, layerMask);
+                
+                LaserDamage damageable = hitObject?.GetComponent<LaserDamage>();
+                if (damageable != null)
+                {
+                    damageable.OnLaserHit(m_damage);
+                }
+
+                BombDamage _damageable = hitObject?.GetComponent<BombDamage>();
+                if (_damageable != null)
+                {
+                    _damageable.OnHit(m_damage);
+                }
+
+                
+
             }
             else if (hitObject.tag == "Player" | hitObject.tag == "Boss")
             {

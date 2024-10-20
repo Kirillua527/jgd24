@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2108820358487132456}
   - component: {fileID: 5411759774898990622}
   - component: {fileID: 947087965075392121}
-  - component: {fileID: 1849128227765902246}
   - component: {fileID: 3769924166264870486}
   m_Layer: 0
   m_Name: MirrorBox
@@ -147,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0016176887, y: -0.000000037252903}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -158,26 +157,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.16793957, y: 0.17117508}
   m_EdgeRadius: 0
---- !u!114 &1849128227765902246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2339400846634302892}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bf2ec77d22d146d58297811049bec38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renewable: 0
-  dropItemPrefab: {fileID: 3205158364899642757, guid: 6a023645ddf434a179906a8f0d31ef63, type: 3}
-  boxExplodePrefab: {fileID: 661661869279156837, guid: 23da71e8ea92b46308be2fb117e5234e, type: 3}
-  spriteList:
-  - {fileID: 1801338562, guid: d9f3cff1f4e444dea93436a0f4dc2526, type: 3}
-  - {fileID: 1185755888, guid: d9f3cff1f4e444dea93436a0f4dc2526, type: 3}
 --- !u!114 &3769924166264870486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renewable: 1
   dropItemPrefab: {fileID: 3205158364899642757, guid: 6a023645ddf434a179906a8f0d31ef63, type: 3}
-  boxExplodePrefab: {fileID: 661661869279156837, guid: 23da71e8ea92b46308be2fb117e5234e, type: 3}
+  boxExplodeAnimPrefab: {fileID: 661661869279156837, guid: 23da71e8ea92b46308be2fb117e5234e, type: 3}
   spriteList:
   - {fileID: 1066547047, guid: d9f3cff1f4e444dea93436a0f4dc2526, type: 3}
   - {fileID: 687494885, guid: d9f3cff1f4e444dea93436a0f4dc2526, type: 3}

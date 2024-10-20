@@ -18,7 +18,8 @@ public class MirrorBox : Box
 
     // BombDamage接口
     public override void OnHit(int damage)
-    {
+    {   
+        Debug.Log(renewable);
         health -= 1; // 具体伤害由damage折算
         if (health <= 0)
         {
@@ -28,7 +29,8 @@ public class MirrorBox : Box
     }
 
     public override void BoxRespawn()
-    {
+    {      
+        Debug.Log("respawn");
         BoxInit();
         TagInit(m_tag, m_layer);
     }
