@@ -8,6 +8,7 @@ TagManager:
   - Mirror
   - Bomb
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Wall
   - Bomb
   - Mirror
-  - 
+  - Box
   - 
   - 
   - 

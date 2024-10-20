@@ -42,7 +42,7 @@ public class Box : MonoBehaviour, BombDamage
     private SpriteRenderer m_sprite;
     public List<Sprite> spriteList;
 
-    public void Start()
+    public virtual void Start()
     {
         m_sprite = GetComponent<SpriteRenderer>();
         m_collider = GetComponent<Collider2D>();
@@ -50,7 +50,7 @@ public class Box : MonoBehaviour, BombDamage
     }
 
     // BombDamage接口
-    public void OnHit(int damage)
+    public virtual void OnHit(int damage)
     {
         health -= 1; // 具体伤害由damage折算
     }
@@ -103,9 +103,14 @@ public class Box : MonoBehaviour, BombDamage
     }
 
 
-    public void BoxRespawn()
+    public virtual void BoxRespawn()
     {   
-        // 销毁全部子物体
+       BoxInit();
+    }
+    
+    public void BoxInit()
+    {
+         // 销毁全部子物体
         Transform[] children = GetComponentsInChildren<Transform>();
         foreach (Transform child in children)
         {
@@ -118,5 +123,6 @@ public class Box : MonoBehaviour, BombDamage
         m_sprite.sprite = spriteList[0]; // 更改贴图
         m_collider.enabled = true; // 开启碰撞检测
     }
-        
+
+
 }
