@@ -18,4 +18,4 @@ MonoBehaviour:
   launcherPrefab: {fileID: 8171210220696821468, guid: 78f5f57a905b3744db693084d042e943, type: 3}
   launcherStats:
   - {fileID: 11400000, guid: f0ac3107a8c6a134295e7f420900a3bf, type: 2}
-  aimToPlayer: 0
+  aimToPlayer: 1

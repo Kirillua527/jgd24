@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e6b23e2241203349bc86801fc67cc4b, type: 3}
-  m_Name: SpiderState_Move
+  m_Script: {fileID: 11500000, guid: 0e16fc04c9e734bf98df1f9c709ed236, type: 3}
+  m_Name: ServantSpiderState_Idle
   m_EditorClassIdentifier: 
-  targetAreaExternalRadius: 5
-  targetAreaInnerRadius: 4
+  idleTime: 3
+  chaseDistance: 10
+  timer: 2.5578656

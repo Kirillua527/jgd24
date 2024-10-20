@@ -36,6 +36,20 @@ public class SpiderState_Skill : SpiderState
                     launcher.GetComponent<Launcher>().Init(launcherStat);
                 }
             }
+            if (skill.GetType() == typeof(SummonSkill))
+            {
+                SummonSkill summonSkill = (SummonSkill)skill;
+                int summonAmount = Mathf.Clamp(stateMachine.maxServantAmount - stateMachine.currentServantAmonut, 0, summonSkill.SummonAmount);
+                for(int i = 0; i < summonAmount; i ++)
+                {
+                    float targetAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
+                    Vector2 targetVector = new Vector2(Mathf.Cos(targetAngle), Mathf.Sin(targetAngle));
+                    float targetDistance = UnityEngine.Random.Range(summonSkill.MinSummonRadius, summonSkill.MaxSummonRadius);
+                    Vector2 summonPosition = (Vector2)stateMachine.transform.position + targetVector * targetDistance;
+                    Instantiate(summonSkill.summonPrefab, summonPosition, Quaternion.identity);
+                    stateMachine.currentServantAmonut ++;
+                }
+            }
         }
         
         stateMachine.GoToNextState();

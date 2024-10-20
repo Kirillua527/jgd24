@@ -103,6 +103,14 @@ public class MathTool
 
         return (root1, root2);
     }
+
+    // 旋转二维向量
+    public static Vector2 RotateVector2(Vector2 vector, float angle)
+    {
+        float x = vector.x * Mathf.Cos(angle) - vector.y * Mathf.Sin(angle);
+        float y = vector.x * Mathf.Sin(angle) + vector.y * Mathf.Cos(angle);
+        return new Vector2(x, y);
+    }
     
     
     

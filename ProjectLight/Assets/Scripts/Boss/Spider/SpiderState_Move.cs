@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using Cinemachine;
 using UnityEngine;
@@ -12,6 +14,12 @@ public class SpiderState_Move : SpiderState
     [SerializeField]
     private float targetAreaInnerRadius = 0;
     public float TargetAreaInnerRadius => targetAreaInnerRadius;
+    [SerializeField]
+    private float minTargetAngle;
+    public float MinTargetAngle => minTargetAngle;
+    [SerializeField]
+    private float maxTargetAngle;
+    public float MaxTargetAngle => maxTargetAngle;
 
     private Vector2 playerPos;
     private Vector2 targetPos;
@@ -22,15 +30,16 @@ public class SpiderState_Move : SpiderState
         playerPos = stateMachine.GetPlayerPosition();
         Vector2 currentPos = stateMachine.transform.position;
 
-        
+        /* 目标点计算1
         // 计算目标点
         Vector2 intersectionPointWithExternalCircle = MathTool.CalculateIntersectionPointWithCircle(playerPos, targetAreaExternalRadius, currentPos);
         Vector2 intersectionPointWithInnerCircle = MathTool.CalculateIntersectionPointWithCircle(playerPos, targetAreaInnerRadius, currentPos);
 
         if ((playerPos - currentPos).magnitude <= targetAreaExternalRadius)
         {
-            currentPos = playerPos + (currentPos - playerPos).normalized * targetAreaExternalRadius;
+            currentPos = playerPos + (currentPos - playerPos).normalized * targetAreaExternalRadius * 2;
         }
+        
         
         // 计算目标点
         (float, float) externalAngleRange =
@@ -47,12 +56,33 @@ public class SpiderState_Move : SpiderState
             unitVectorPC.x * Mathf.Cos(targetAngle) - unitVectorPC.y * Mathf.Sin(targetAngle),
             unitVectorPC.x * Mathf.Sin(targetAngle) + unitVectorPC.y * Mathf.Cos(targetAngle));
         targetPos = currentPos + targetVector * targetLength;
-        // Debug.Log(targetPos);
+        
+
+        
         
         // 绘制路径
         Debug.DrawLine(currentPos, currentPos + targetVector * lengthRange.Item2, Color.blue, 1f);
         Debug.DrawLine(currentPos, intersectionPointWithExternalCircle, Color.red, 1f);
         // Debug.DrawLine(currentPos, targetPos, Color.yellow, 1f);
+        */
+
+        #region 目标点计算
+        Vector2 pc = currentPos - playerPos;
+        float distance = pc.magnitude;
+
+        (float, float) externalAngleRange = MathTool.CalculateAngleRange(playerPos, targetAreaExternalRadius, currentPos);
+        float oppsiteAngle = Mathf.Rad2Deg * (externalAngleRange.Item2 - externalAngleRange.Item1);
+        float centralAngle = distance <= TargetAreaExternalRadius
+            ? 180
+            : Mathf.Clamp(oppsiteAngle, MinTargetAngle, MaxTargetAngle);
+        float targetAngle = UnityEngine.Random.Range(-centralAngle / 2, centralAngle / 2);
+        float targetLength = UnityEngine.Random.Range(TargetAreaInnerRadius, TargetAreaExternalRadius);
+        Vector2 unitDirectionVector = MathTool.RotateVector2(pc.normalized, Mathf.Deg2Rad * targetAngle);
+        targetPos = playerPos + unitDirectionVector * targetLength;
+
+        Debug.DrawLine(currentPos, targetPos, Color.yellow, 1f);
+
+        #endregion 目标点计算
     }
 
     public override void Execute()
@@ -60,11 +90,10 @@ public class SpiderState_Move : SpiderState
         base.Execute();
 
         // 移动到目标点
-        // stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, targetPos, stateMachine.moveSpeed * Time.deltaTime));
+        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, targetPos, stateMachine.moveSpeed * Time.deltaTime));
 
-        stateMachine.GoToNextState();
         // 判断是否到达目标点
-        if(Vector2.Distance(stateMachine.transform.position, targetPos) <= 0.1f)
+        if (Vector2.Distance(stateMachine.transform.position, targetPos) <= 0.1f)
         {
             stateMachine.GoToNextState();
         }
@@ -89,11 +118,12 @@ public class SpiderState_Move : SpiderState
                  angle >= innerAngleRange.Item2 && angle <= externalAngleRange.Item2)
         {
             float externalLength = MathTool.CalculateDistanceToCircle(center, externalRadius, point, angle);
-            
+
             float distance = (center - point).magnitude;
             float baseAngle = Mathf.Asin(externalRadius / distance);
             float externalAngle = baseAngle - angle;
             float externalTangentLineLength = Mathf.Sqrt(distance * distance - externalRadius * externalRadius);
+            Debug.Log("externalTangentLineLength: " + externalTangentLineLength);
             float innerLength = externalTangentLineLength / Mathf.Cos(externalAngle);
             Debug.Log("(externalLength, innerLength): " + (externalLength, innerLength));
             return (externalLength, innerLength);

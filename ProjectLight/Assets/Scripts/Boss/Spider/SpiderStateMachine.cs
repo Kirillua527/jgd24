@@ -5,6 +5,10 @@ public class SpiderStateMachine : StateMachine
 {
     [Header("Boss属性")]
     public float moveSpeed;
+    public int maxServantAmount;
+
+    [ReadOnly]
+    public int currentServantAmonut;
     
     [Header("状态机参数")]
     public Animator animator;
@@ -18,6 +22,7 @@ public class SpiderStateMachine : StateMachine
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        currentServantAmonut = 0;
 
         foreach (SpiderState state in states)
         {
