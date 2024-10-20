@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections.Generic;
 
 public class GameSceneManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameSceneManager : MonoBehaviour
 
     [SerializeField] GameObject m_loading;
 
+    [SerializeField] List<GameObject> m_disable_while_loading;
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -18,11 +21,21 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadSync(string target_scene)
     {
+        foreach(GameObject panel in m_disable_while_loading)
+        {
+            panel.SetActive(false);
+        }
+
         SceneManager.LoadScene(target_scene);
     }
 
     public void LoadAsync(string target_scene)
     {
+        foreach (GameObject panel in m_disable_while_loading)
+        {
+            panel.SetActive(false);
+        }
+
         StartCoroutine(LoadSceneAsync(target_scene));
     }
 
