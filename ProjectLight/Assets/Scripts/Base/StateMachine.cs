@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    IState currentState;
+    protected IState currentState = null;
 
     public IState CurrentState => currentState;
 
@@ -12,6 +12,11 @@ public class StateMachine : MonoBehaviour
     void Update()
     {
         currentState.Execute();
+    }
+
+    void FixedUpdate()
+    {
+        currentState.FixedExecute();
     }
 
     public void SwitchOn(IState newState)
