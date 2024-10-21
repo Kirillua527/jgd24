@@ -11,7 +11,11 @@ public class ServantSpiderState_Idle : ServantSpiderState
     private float chaseDistance = 0;
     public float ChaseDistance => chaseDistance;
 
-    [SerializeField, ReadOnly]
+    [SerializeField
+#if UNITY_EDITOR
+        , ReadOnly
+#endif
+        ]
     private float timer = 0;
     public float Timer => timer;
 

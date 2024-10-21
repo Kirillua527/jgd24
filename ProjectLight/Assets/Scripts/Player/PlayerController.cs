@@ -25,7 +25,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private UILogic m_ui_logic;
 
     // movement
-    [SerializeField, ReadOnly] private Vector2 m_input_movement;
+    [SerializeField
+#if UNITY_EDITOR
+        , ReadOnly
+#endif
+        ] private Vector2 m_input_movement;
 
     [SerializeField] private float m_speed;
     [SerializeField] private float m_speed_while_planting;
@@ -40,7 +44,11 @@ public class PlayerController : MonoBehaviour
     private double m_planting_start_time;
 
     // status
-    [SerializeField, ReadOnly] private PlayerStatus m_status = PlayerStatus.default_status;
+    [SerializeField
+#if UNITY_EDITOR
+        , ReadOnly
+#endif
+    ] private PlayerStatus m_status = PlayerStatus.default_status;
     public PlayerStatus getPlayerStatus() => m_status;
 
     public void Awake()

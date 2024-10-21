@@ -6,7 +6,11 @@ public class SpiderState_Skill : SpiderState
 {
     public List<Skill> skillList;
 
-    [SerializeField, ReadOnly]
+    [SerializeField
+#if UNITY_EDITOR
+        , ReadOnly
+#endif
+        ]
     private Skill skill;
 
     public override void Enter()

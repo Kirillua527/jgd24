@@ -7,7 +7,11 @@ public class ServantSpiderState_Cocoon : ServantSpiderState
     private float cocoonTime = 0;
     public float CocconTime => cocoonTime;
 
-    [SerializeField, ReadOnly]
+    [SerializeField
+#if UNITY_EDITOR
+        , ReadOnly
+#endif
+        ]
     private float timer = 0;
     public float Timer => timer;
 

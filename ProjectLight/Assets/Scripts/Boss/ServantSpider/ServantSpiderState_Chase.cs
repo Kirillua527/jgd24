@@ -1,4 +1,3 @@
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "StateMachine/ServantSpiderState/Chase", fileName = "ServantSpiderState_Chase")]
@@ -13,7 +12,11 @@ public class ServantSpiderState_Chase : ServantSpiderState
     [SerializeField]
     private float chaseDistanceOffset = 0;
     public float ChaseDistanceOffset => chaseDistanceOffset;
-    [SerializeField, ReadOnly]
+    [SerializeField,
+#if UNITY_EDITOR
+        ReadOnly
+#endif
+        ]
     private float timer = 0;
     public float Timer { get; set; }
 

@@ -1,7 +1,4 @@
-using System.CodeDom;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class ServantSpiderStateMachine : StateMachine

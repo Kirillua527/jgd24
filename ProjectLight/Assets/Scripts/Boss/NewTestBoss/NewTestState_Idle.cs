@@ -7,7 +7,11 @@ public class NewTestState_Idle : NewTestState
     private float idleTime = 0;
     public float IdleTime => idleTime;
 
-    [SerializeField, ReadOnly]
+    [SerializeField
+#if UNITY_EDITOR
+        , ReadOnly
+#endif
+        ]
     private float timer = 0;
     public float Timer => timer;
 
