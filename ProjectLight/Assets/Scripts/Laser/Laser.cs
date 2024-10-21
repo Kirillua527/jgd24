@@ -26,7 +26,7 @@ public class Laser : MonoBehaviour
     public int MAX_LENGTH = 1000; // todo : private
     public float OFFSET = 0.0001f; // todo : private
 
-    public float lineWidth = 0.5f;
+    public float lineWidth = 0.1f;
 
     public List<Material> meterialList; // 0: Aim ; 1: Emit
 
