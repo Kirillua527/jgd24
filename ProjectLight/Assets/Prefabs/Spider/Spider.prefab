@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1552626920991258113
+--- !u!1 &5338319636300714571
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 212454148011934672}
-  - component: {fileID: 8248660946953737565}
-  - component: {fileID: 1979772815407387038}
-  - component: {fileID: 6709297403136912115}
-  - component: {fileID: 127312849995523611}
+  - component: {fileID: 3997669065794731730}
+  - component: {fileID: 5952619420925449153}
+  - component: {fileID: 5824706029707694627}
+  - component: {fileID: 8090122043248374448}
   m_Layer: 0
-  m_Name: ServantSpider
+  m_Name: Spider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &212454148011934672
+--- !u!4 &3997669065794731730
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552626920991258113}
+  m_GameObject: {fileID: 5338319636300714571}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.27, y: 2.13, z: 0}
+  m_LocalPosition: {x: 5.05, y: 0.3704074, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8248660946953737565
+--- !u!212 &5952619420925449153
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552626920991258113}
+  m_GameObject: {fileID: 5338319636300714571}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.36320752, g: 0.94864357, b: 1, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Color: {r: 1, g: 0.28773582, b: 0.28773582, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,14 +86,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &1979772815407387038
+--- !u!114 &5824706029707694627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5338319636300714571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8f2ee3fe0d4f84a9de7057d810d60f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 80
+  maxServantAmount: 0
+  currentServantAmonut: 0
+  animator: {fileID: 0}
+  rb: {fileID: 0}
+  states:
+  - {fileID: 11400000, guid: 4661eaeb0cedbbd44b60dc9518032cb7, type: 2}
+  - {fileID: 11400000, guid: 95527a240b75875498069249bbb01f62, type: 2}
+  - {fileID: 11400000, guid: 711b0a89425084c7b8fd7fadabc67b51, type: 2}
+--- !u!50 &8090122043248374448
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552626920991258113}
+  m_GameObject: {fileID: 5338319636300714571}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -114,38 +134,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6709297403136912115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552626920991258113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9831366445fe548a5909c5635b893fce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 10
-  animator: {fileID: 0}
-  rb: {fileID: 0}
-  sr: {fileID: 0}
-  states:
-  - {fileID: 11400000, guid: c6b397d76ec83b2479e0099fd0004d3a, type: 2}
-  - {fileID: 11400000, guid: eb487a2493ab84eeba027d215e398d58, type: 2}
-  - {fileID: 11400000, guid: a57a6a1ee80c24bcfa54089fc5afe332, type: 2}
-  - {fileID: 11400000, guid: d809ebf6a9b854c0485df54c07542f9b, type: 2}
-  AvailableStates: []
---- !u!114 &127312849995523611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552626920991258113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7423f20f4a17d468bb3c0b14362c642c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  servantSpiderState_Hanging: {fileID: 11400000, guid: d809ebf6a9b854c0485df54c07542f9b, type: 2}

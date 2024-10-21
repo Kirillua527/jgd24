@@ -12,6 +12,7 @@ public class ServantSpiderStateMachine : StateMachine
     [Header("状态机参数")]
     public Animator animator;
     public Rigidbody2D rb;
+    public SpriteRenderer sr;
 
     [SerializeField]
     private List<ServantSpiderState> states;
@@ -22,36 +23,46 @@ public class ServantSpiderStateMachine : StateMachine
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         stateTable = new Dictionary<System.Type, IState>(states.Count);
 
         foreach (ServantSpiderState state in states)
         {
             state.Init(animator, this);
-            ServantSpiderState newState = ScriptableObject.CreateInstance<ServantSpiderState>();
-            if(state.GetType() == typeof(ServantSpiderState_Idle))
+            if(state.GetType() == typeof(ServantSpiderState_Cocoon))
             {
-                newState = ScriptableObject.CreateInstance<ServantSpiderState_Idle>();
+                ServantSpiderState_Cocoon newState = ScriptableObject.CreateInstance<ServantSpiderState_Cocoon>();
+                newState.Init((ServantSpiderState_Cocoon)state);
+                stateTable.Add(state.GetType(), newState);
+                AvailableStates.Add(newState);
+            }
+            else if(state.GetType() == typeof(ServantSpiderState_Idle))
+            {
+                ServantSpiderState_Idle newState = ScriptableObject.CreateInstance<ServantSpiderState_Idle>();
                 newState.Init((ServantSpiderState_Idle)state);
+                stateTable.Add(state.GetType(), newState);
+                AvailableStates.Add(newState);
             }
             else if (state.GetType() == typeof(ServantSpiderState_Chase))
             {
-                newState = ScriptableObject.CreateInstance<ServantSpiderState_Chase>();
+                ServantSpiderState_Chase newState = ScriptableObject.CreateInstance<ServantSpiderState_Chase>();
                 newState.Init((ServantSpiderState_Chase)state);
-                newState.PrintState();
+                stateTable.Add(state.GetType(), newState);
+                AvailableStates.Add(newState);
             }
             else if (state.GetType() == typeof(ServantSpiderState_Hanging))
             {
-                newState = ScriptableObject.CreateInstance<ServantSpiderState_Hanging>();
+                ServantSpiderState_Hanging newState = ScriptableObject.CreateInstance<ServantSpiderState_Hanging>();
                 newState.Init((ServantSpiderState_Hanging)state);
+                stateTable.Add(state.GetType(), newState);
+                AvailableStates.Add(newState);
             }
-            stateTable.Add(state.GetType(), newState);
-            AvailableStates.Add(newState);
         }
     }
 
     void Start()
     {
-        SwitchOn(stateTable[typeof(ServantSpiderState_Idle)]);
+        SwitchOn(stateTable[typeof(ServantSpiderState_Cocoon)]);
     }
 
     public Vector2 GetPlayerPosition()

@@ -30,12 +30,12 @@ public class ServantSpiderState_Chase : ServantSpiderState
         base.Execute();
         timer += Time.deltaTime;
 
-        // 移动到目标点
-        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, targetPosition, stateMachine.moveSpeed * Time.deltaTime));
-
         playerPosition = stateMachine.GetPlayerPosition();
-        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, CalculateTargetPosition(playerPosition, (Vector2)stateMachine.transform.position, chaseDistanceOffset), stateMachine.moveSpeed * Time.deltaTime));
 
+        /*'
+        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, CalculateTargetPosition(playerPosition, (Vector2)stateMachine.transform.position, chaseDistanceOffset), stateMachine.moveSpeed * Time.deltaTime));
+        */
+        
         if(timer >= ChaseTime)
         {
             playerPosition = stateMachine.GetPlayerPosition();
@@ -47,6 +47,14 @@ public class ServantSpiderState_Chase : ServantSpiderState
             }
             timer = 0;
         }
+    }
+
+    public override void FixedExecute()
+    {
+        base.FixedExecute();
+
+        // 移动到目标点
+        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, playerPosition, stateMachine.moveSpeed * Time.deltaTime));
     }
 
     private Vector2 CalculateTargetPosition(Vector2 playerPos, Vector2 currentPos, float chaseDistanceOffset)
@@ -64,7 +72,7 @@ public class ServantSpiderState_Chase : ServantSpiderState
         this.chaseDistanceOffset = state.chaseDistanceOffset;
     }
 
-    public void PrintState()
+    public override void PrintState()
     {
         Debug.Log(this.animator);
         Debug.Log(this.stateMachine);

@@ -89,14 +89,18 @@ public class SpiderState_Move : SpiderState
     {
         base.Execute();
 
-        // 移动到目标点
-        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, targetPos, stateMachine.moveSpeed * Time.deltaTime));
-
         // 判断是否到达目标点
         if (Vector2.Distance(stateMachine.transform.position, targetPos) <= 0.1f)
         {
             stateMachine.GoToNextState();
         }
+    }
+
+    public override void FixedExecute()
+    {
+        base.FixedExecute();
+        // 移动到目标点
+        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, targetPos, stateMachine.moveSpeed * Time.fixedDeltaTime));
     }
 
     private (float, float) GetLengthRange(Vector2 center, float externalRadius, float innerRadius, Vector2 point,

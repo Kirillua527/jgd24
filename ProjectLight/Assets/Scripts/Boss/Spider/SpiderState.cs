@@ -14,6 +14,11 @@ public class SpiderState : ScriptableObject, IState
     {
     }
 
+    public virtual void FixedExecute()
+    {
+        
+    }
+
     public virtual void Exit()
     {
     }

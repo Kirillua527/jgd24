@@ -15,6 +15,11 @@ public class ServantSpiderState : ScriptableObject, IState
         
     }
 
+    public virtual void FixedExecute()
+    {
+        
+    }
+
     public virtual void Exit()
     {
         
@@ -32,7 +37,7 @@ public class ServantSpiderState : ScriptableObject, IState
         this.stateMachine = state.stateMachine;
     }
 
-    public void PrintState()
+    public virtual void PrintState()
     {
         Debug.Log(this.animator);
         Debug.Log(this.stateMachine);

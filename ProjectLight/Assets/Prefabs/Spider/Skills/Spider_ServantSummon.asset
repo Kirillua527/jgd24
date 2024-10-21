@@ -14,10 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillID: 3
   skillName: ServantSummon
-  Range: 0
   summonPrefab: {fileID: 1552626920991258113, guid: 2bc488e89d53147f8a37538781d14d76, type: 3}
-  amountPerSummon: 2
-  maxSummonAmount: 6
+  summonAmount: 3
   minSummonRadius: 3
   maxSummonRadius: 5
-  currentSummonAmonut: 0

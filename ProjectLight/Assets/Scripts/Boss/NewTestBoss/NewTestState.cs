@@ -15,6 +15,11 @@ public class NewTestState : ScriptableObject, IState
         
     }
 
+    public virtual void FixedExecute()
+    {
+        
+    }
+
     public virtual void Exit()
     {
         

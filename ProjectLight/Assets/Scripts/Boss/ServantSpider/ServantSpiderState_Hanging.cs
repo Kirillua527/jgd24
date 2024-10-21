@@ -22,13 +22,18 @@ public class ServantSpiderState_Hanging : ServantSpiderState
         // 移动到目标点
         playerPosition = stateMachine.GetPlayerPosition();
         float distance = ((Vector2)stateMachine.transform.position - playerPosition).magnitude;
-        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, playerPosition, stateMachine.moveSpeed * Time.deltaTime));
 
         if(distance <= attackRadius)
         {
             stateMachine.transform.localScale = Vector3.one;
             stateMachine.ChangeState(typeof(ServantSpiderState_Idle));
         }
+    }
+
+    public override void FixedExecute()
+    {
+        base.FixedExecute();
+        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, playerPosition, stateMachine.moveSpeed * Time.fixedDeltaTime));
     }
 
     public void Init(ServantSpiderState_Hanging state)

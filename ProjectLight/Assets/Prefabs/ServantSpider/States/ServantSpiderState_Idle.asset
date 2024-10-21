@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ServantSpiderState_Idle
   m_EditorClassIdentifier: 
   idleTime: 3
-  chaseDistance: 10
+  chaseDistance: 6
   timer: 2.5578656

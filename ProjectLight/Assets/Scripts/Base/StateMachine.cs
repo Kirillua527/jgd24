@@ -14,6 +14,11 @@ public class StateMachine : MonoBehaviour
         currentState.Execute();
     }
 
+    void FixedUpdate()
+    {
+        currentState.FixedExecute();
+    }
+
     public void SwitchOn(IState newState)
     {
         currentState = newState;
