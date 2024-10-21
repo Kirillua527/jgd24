@@ -45,8 +45,6 @@ public class TestStateMachine : StateMachine
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, viewDistance);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, skills[nextSkillIndex].Range);
     }
 
     public bool FoundPlayer()
@@ -56,6 +54,6 @@ public class TestStateMachine : StateMachine
 
     public bool IsPlayerInRange()
     {
-        return Physics2D.OverlapCircle(transform.position, skills[nextSkillIndex].Range, targetLayer);
+        return true;
     }
 }

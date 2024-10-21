@@ -6,4 +6,6 @@ public class BulletSkill : Skill
 {
     public GameObject launcherPrefab;
     public List<LauncherStat> launcherStats;
+
+    public bool aimToPlayer = false;
 }

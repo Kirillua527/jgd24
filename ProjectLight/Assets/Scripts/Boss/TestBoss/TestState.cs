@@ -21,6 +21,11 @@ public class TestState : ScriptableObject, IState
 
     }
 
+    public virtual void FixedExecute()
+    {
+        
+    }
+
     public virtual void Exit()
     {
         
