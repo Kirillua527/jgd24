@@ -8,19 +8,6 @@ using UnityEngine.UIElements;
 [CreateAssetMenu(menuName = "StateMachine/SpiderState/Move", fileName = "SpiderState_Move")]
 public class SpiderState_Move : SpiderState
 {
-    [SerializeField]
-    private float targetAreaExternalRadius = 0;
-    public float TargetAreaExternalRadius => targetAreaExternalRadius;
-    [SerializeField]
-    private float targetAreaInnerRadius = 0;
-    public float TargetAreaInnerRadius => targetAreaInnerRadius;
-    [SerializeField]
-    private float minTargetAngle;
-    public float MinTargetAngle => minTargetAngle;
-    [SerializeField]
-    private float maxTargetAngle;
-    public float MaxTargetAngle => maxTargetAngle;
-
     private Vector2 playerPos;
     private Vector2 targetPos;
 
@@ -70,13 +57,13 @@ public class SpiderState_Move : SpiderState
         Vector2 pc = currentPos - playerPos;
         float distance = pc.magnitude;
 
-        (float, float) externalAngleRange = MathTool.CalculateAngleRange(playerPos, targetAreaExternalRadius, currentPos);
+        (float, float) externalAngleRange = MathTool.CalculateAngleRange(playerPos, stateMachine.TargetAreaExternalRadius, currentPos);
         float oppsiteAngle = Mathf.Rad2Deg * (externalAngleRange.Item2 - externalAngleRange.Item1);
-        float centralAngle = distance <= TargetAreaExternalRadius
+        float centralAngle = distance <= stateMachine.TargetAreaExternalRadius
             ? 180
-            : Mathf.Clamp(oppsiteAngle, MinTargetAngle, MaxTargetAngle);
+            : Mathf.Clamp(oppsiteAngle, stateMachine.MinTargetAngle, stateMachine.MaxTargetAngle);
         float targetAngle = UnityEngine.Random.Range(-centralAngle / 2, centralAngle / 2);
-        float targetLength = UnityEngine.Random.Range(TargetAreaInnerRadius, TargetAreaExternalRadius);
+        float targetLength = UnityEngine.Random.Range(stateMachine.TargetAreaInnerRadius, stateMachine.TargetAreaExternalRadius);
         Vector2 unitDirectionVector = MathTool.RotateVector2(pc.normalized, Mathf.Deg2Rad * targetAngle);
         targetPos = playerPos + unitDirectionVector * targetLength;
 
@@ -100,7 +87,7 @@ public class SpiderState_Move : SpiderState
     {
         base.FixedExecute();
         // 移动到目标点
-        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, targetPos, stateMachine.moveSpeed * Time.fixedDeltaTime));
+        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, targetPos, stateMachine.MoveSpeed * Time.fixedDeltaTime));
     }
 
     private (float, float) GetLengthRange(Vector2 center, float externalRadius, float innerRadius, Vector2 point,

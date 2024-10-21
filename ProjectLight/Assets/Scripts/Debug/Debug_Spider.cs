@@ -1,28 +1,31 @@
 using UnityEngine;
 
-public class Debug_SpiderChaseRange : MonoBehaviour
+public class Debug_Spider : MonoBehaviour
 {
-    public SpiderState_Move spiderState_Move;
-    public GameObject spider;
+    public SpiderStateMachine stateMachine;
+
+    [Label("显示移动距离")]
+    public bool showMoveRange = true;
 
     private void OnDrawGizmos()
     {
-        if(spiderState_Move != null)
+        if(stateMachine != null)
         {
-            
-            Vector2 spiderPos = spider.transform.position;
-            Vector2 ps = spider.transform.position - transform.position;
+            if(showMoveRange)
+            {
+                Vector2 spiderPos = stateMachine.gameObject.transform.position;
+            Vector2 ps = stateMachine.gameObject.transform.position - transform.position;
             Vector2 direction = ps.normalized;
             float distance = ps.magnitude;
-            (float, float) externalAngleRange = MathTool.CalculateAngleRange(transform.position, spiderState_Move.TargetAreaExternalRadius, spiderPos);
+            (float, float) externalAngleRange = MathTool.CalculateAngleRange(transform.position, stateMachine.TargetAreaExternalRadius, spiderPos);
             float oppsiteAngle = Mathf.Rad2Deg * (externalAngleRange.Item2 - externalAngleRange.Item1);
-            float angle = distance <= spiderState_Move.TargetAreaExternalRadius 
+            float angle = distance <= stateMachine.TargetAreaExternalRadius 
             ? 180
-            : Mathf.Clamp(oppsiteAngle, spiderState_Move.MinTargetAngle, spiderState_Move.MaxTargetAngle);
+            : Mathf.Clamp(oppsiteAngle, stateMachine.MinTargetAngle, stateMachine.MaxTargetAngle);
             int angleINT = (int)angle;
 
-            GizmosTool.DrawWireSemicircle2D(transform.position, direction, spiderState_Move.TargetAreaExternalRadius, angleINT);
-            GizmosTool.DrawWireSemicircle2D(transform.position, direction, spiderState_Move.TargetAreaInnerRadius, angleINT);
+            GizmosTool.DrawWireSemicircle2D(transform.position, direction, stateMachine.TargetAreaExternalRadius, angleINT);
+            GizmosTool.DrawWireSemicircle2D(transform.position, direction, stateMachine.TargetAreaInnerRadius, angleINT);
 
             
             /*
@@ -41,6 +44,7 @@ public class Debug_SpiderChaseRange : MonoBehaviour
             Gizmos.DrawLine(tangentPoints.Item1, spiderPos);
             Gizmos.DrawLine(tangentPoints.Item2, spiderPos);
             */
+            }
         }
     }
 }

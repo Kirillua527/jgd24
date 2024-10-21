@@ -3,10 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "StateMachine/SpiderState/Idle", fileName = "SpiderState_Idle")]
 public class SpiderState_Idle : SpiderState
 {
-    [SerializeField]
-    private float idleTime = 0;
-    public float IdleTime => idleTime;
-
     [SerializeField, ReadOnly]
     private float timer = 0;
     public float Timer => timer;
@@ -22,7 +18,7 @@ public class SpiderState_Idle : SpiderState
         base.Execute();
         timer += Time.deltaTime;
 
-        if(timer >= IdleTime)
+        if(timer >= stateMachine.IdleTime)
         {
             stateMachine.GoToNextState();
         }
