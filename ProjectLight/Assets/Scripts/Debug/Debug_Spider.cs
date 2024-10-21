@@ -4,7 +4,9 @@ public class Debug_Spider : MonoBehaviour
 {
     public SpiderStateMachine stateMachine;
 
+#if UNITY_EDITOR
     [Label("显示移动距离")]
+#endif
     public bool showMoveRange = true;
 
     private void OnDrawGizmos()

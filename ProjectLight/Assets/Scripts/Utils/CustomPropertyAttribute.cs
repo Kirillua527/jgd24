@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEngine;
 using UnityEditor;
 
@@ -70,3 +72,5 @@ public class LabelAttributeDrawer : PropertyDrawer
         EditorGUI.PropertyField(position, property, label);
     }
 }
+
+#endif

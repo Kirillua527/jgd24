@@ -28,7 +28,9 @@ public class SpiderStateMachine : StateMachine
     [Header("随从数量")]
     public int maxServantAmount;
 
+#if UNITY_EDITOR
     [ReadOnly]
+#endif
     public int currentServantAmonut;
     
     [Header("状态机参数")]
