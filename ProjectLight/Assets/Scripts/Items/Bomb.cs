@@ -45,7 +45,7 @@ public class Bomb : MonoBehaviour
             BombDamage damageable = hit.collider?.GetComponent<BombDamage>();
             if (damageable != null)
             {
-                damageable.OnHit(m_damage);
+                damageable.OnBombHit(m_damage);
             }
 
             // debug draw

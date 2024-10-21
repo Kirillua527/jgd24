@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4135629725969359355}
   - component: {fileID: 2763883713530472684}
   - component: {fileID: 2101575451348393242}
+  - component: {fileID: 1906083555835640776}
+  - component: {fileID: 5033034740816534559}
   m_Layer: 0
   m_Name: CapsuleBullet
   m_TagString: Untagged
@@ -101,3 +103,51 @@ MonoBehaviour:
   bulletSize: 0
   bulletLifeTime: 0
   damageRate: 0
+--- !u!70 &1906083555835640776
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5867816866915418574}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
+--- !u!114 &5033034740816534559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5867816866915418574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef3a53371914488aaf89077b0e3c1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_damage: 20

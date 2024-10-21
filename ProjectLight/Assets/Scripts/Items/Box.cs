@@ -15,17 +15,17 @@ public class Box : MonoBehaviour, BombDamage
     public GameObject boxExplodeAnimPrefab;
 
     // Box血量
-    private int Health = 1; 
-    public int health
+    private int health = 1; 
+    public int Health
     {   
         get
         {
-            return Health;
+            return health;
         }
         set
         {
-            Health = value;
-            if(Health<=0)
+            health = value;
+            if(health<=0)
             {
                 // Box毁坏
                 BoxDestored();
@@ -49,11 +49,15 @@ public class Box : MonoBehaviour, BombDamage
 
     }
 
+
+    // 伤害挂载
     // BombDamage接口
-    public virtual void OnHit(int damage)
+    public void OnBombHit(int damage)
     {
-        health -= 1; // 具体伤害由damage折算
+        Health -= 1; // 具体伤害由damage折算
     }
+
+
 
     // Box毁坏
     public void BoxDestored()

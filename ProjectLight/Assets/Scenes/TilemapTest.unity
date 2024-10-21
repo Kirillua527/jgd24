@@ -11249,6 +11249,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7206fcba3a4b58c4f807f26732e578a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_pause_panel: {fileID: 0}
+  m_ui_logic: {fileID: 0}
   m_input_movement: {x: 0, y: 0}
   m_speed: 10
   m_speed_while_planting: 0
@@ -11865,6 +11867,10 @@ PrefabInstance:
     - target: {fileID: 1765958672373448022, guid: 6ea46edf2ca6342fe84285f9b93e9081, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746967768863615933, guid: 6ea46edf2ca6342fe84285f9b93e9081, type: 3}
+      propertyPath: renewable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MirrorBox : Box
+public class MirrorBox : Box,LaserDamage
 {
     [SerializeField]
     public string m_tag = "Mirror";
@@ -16,12 +16,11 @@ public class MirrorBox : Box
         TagInit(m_tag, m_layer);
     }
 
-    // BombDamage接口
-    public override void OnHit(int damage)
+
+    public void OnLaserHit(int damage)
     {   
-        Debug.Log(renewable);
-        health -= 1; // 具体伤害由damage折算
-        if (health <= 0)
+        Health -= 1; // 具体伤害由damage折算
+        if (Health <= 0)
         {
             gameObject.tag = "Untagged";
             gameObject.layer = LayerMask.NameToLayer("Default");
@@ -30,7 +29,6 @@ public class MirrorBox : Box
 
     public override void BoxRespawn()
     {      
-        Debug.Log("respawn");
         BoxInit();
         TagInit(m_tag, m_layer);
     }

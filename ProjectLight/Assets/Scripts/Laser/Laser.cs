@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Laser : MonoBehaviour
 {   
-    [SerializeField] private int m_damage = 1;
+    [SerializeField] private int m_damage = 20;
 
     // Test
     public float testAngle;
@@ -122,18 +122,10 @@ public class Laser : MonoBehaviour
                     damageable.OnLaserHit(m_damage);
                 }
 
-                BombDamage _damageable = hitObject?.GetComponent<BombDamage>();
-                if (_damageable != null)
-                {
-                    _damageable.OnHit(m_damage);
-                }
-
-                
-
             }
             else if (hitObject.tag == "Player" | hitObject.tag == "Boss")
             {
-                OnHitRole(hitObject.tag, hit);
+                HitRole(hitObject.tag, hit);
                 laserStatus = false;
             }
             else
@@ -149,22 +141,12 @@ public class Laser : MonoBehaviour
         }
     }
 
-    public void OnHitRole(string hitTag, RaycastHit2D hit)
-    {
-        if(hitTag == "Player")
-        {
-
+    public void HitRole(string hitTag, RaycastHit2D hit)
+    {   
             LaserDamage damageable = hitObject?.GetComponent<LaserDamage>();
             if (damageable != null)
             {
                 damageable.OnLaserHit(m_damage);
             }
-
-        }
-        else if 
-        (hitTag == "Boss")
-        {
-
-        }
     }
 }
