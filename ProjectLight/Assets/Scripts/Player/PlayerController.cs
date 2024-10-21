@@ -105,10 +105,12 @@ public class PlayerController : MonoBehaviour
     private void ProcessInput()
     {
         m_input_movement = m_player_input.GP.Move.ReadValue<Vector2>();
+        m_input_movement = m_player_input.GP.Move.ReadValue<Vector2>();
     }
 
     private void PlayerMovement()
     {
+        if (m_input_movement.x != 0 || m_input_movement.y != 0)
         if (m_input_movement.x != 0 || m_input_movement.y != 0)
         {
             float2 movement_input = math.normalize(new float2(m_input_movement.x, m_input_movement.y));
