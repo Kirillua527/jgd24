@@ -478,15 +478,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430e6d60ed3354c68921c7436bd7b6ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
   health: 100
-=======
->>>>>>> origin/dev
   bombDamageProtectTime: 0.5
   laserDamageProtectTime: 0.5
   bossDamageProtectTime: 0.5
   bulletDamageProtectTime: 0.5
-<<<<<<< HEAD
 --- !u!1001 &208434655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -548,8 +544,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb7eac78c94e3a045b9e72e4631086b2, type: 3}
-=======
->>>>>>> origin/dev
 --- !u!1 &512122526
 GameObject:
   m_ObjectHideFlags: 0
