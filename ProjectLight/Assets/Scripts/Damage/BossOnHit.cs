@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BossOnHit : MonoBehaviour, BombDamage, LaserDamage
-{
+{   
+     [SerializeField]
     private int health = 100;
     public int Health
     {
