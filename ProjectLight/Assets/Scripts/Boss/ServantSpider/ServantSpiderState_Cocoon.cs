@@ -3,10 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "StateMachine/ServantSpiderState/Cocoon", fileName = "ServantSpiderState_Cocoon")]
 public class ServantSpiderState_Cocoon : ServantSpiderState
 {
-    [SerializeField]
-    private float cocoonTime = 0;
-    public float CocconTime => cocoonTime;
-
     [SerializeField
 #if UNITY_EDITOR
         , ReadOnly
@@ -15,14 +11,11 @@ public class ServantSpiderState_Cocoon : ServantSpiderState
     private float timer = 0;
     public float Timer => timer;
 
-    public Sprite cocoonSprite;
-    public Sprite spiderSprite;
-
     public override void Enter()
     {
         base.Enter();
         timer = 0;
-        stateMachine.sr.sprite = cocoonSprite;
+        stateMachine.sr.sprite = stateMachine.cocoonSprite;
     }
 
     public override void Execute()
@@ -30,7 +23,7 @@ public class ServantSpiderState_Cocoon : ServantSpiderState
         base.Execute();
         timer += Time.deltaTime;
 
-        if(timer >= cocoonTime)
+        if(timer >= stateMachine.CocoonTime)
         {
             stateMachine.ChangeState(typeof(ServantSpiderState_Idle));
         }
@@ -39,15 +32,6 @@ public class ServantSpiderState_Cocoon : ServantSpiderState
     public override void Exit()
     {
         base.Exit();
-        stateMachine.sr.sprite = spiderSprite;
-    }
-
-    public void Init(ServantSpiderState_Cocoon state)
-    {
-        this.animator = state.animator;
-        this.stateMachine = state.stateMachine;
-        this.cocoonTime = state.cocoonTime;
-        this.cocoonSprite = state.cocoonSprite;
-        this.spiderSprite = state.spiderSprite;
+        stateMachine.sr.sprite = stateMachine.spiderSprite;
     }
 }

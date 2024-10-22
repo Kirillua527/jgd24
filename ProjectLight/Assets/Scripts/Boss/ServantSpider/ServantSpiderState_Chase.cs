@@ -3,15 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "StateMachine/ServantSpiderState/Chase", fileName = "ServantSpiderState_Chase")]
 public class ServantSpiderState_Chase : ServantSpiderState
 {
-    [SerializeField]
-    private float chaseTime = 0;
-    public float ChaseTime => chaseTime;
-    [SerializeField]
-    private float maxChaseDistance = 0;
-    public float MaxChaseDistance => maxChaseDistance;
-    [SerializeField]
-    private float chaseDistanceOffset = 0;
-    public float ChaseDistanceOffset => chaseDistanceOffset;
     [SerializeField,
 #if UNITY_EDITOR
         ReadOnly
@@ -39,12 +30,12 @@ public class ServantSpiderState_Chase : ServantSpiderState
         stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, CalculateTargetPosition(playerPosition, (Vector2)stateMachine.transform.position, chaseDistanceOffset), stateMachine.moveSpeed * Time.deltaTime));
         */
         
-        if(timer >= ChaseTime)
+        if(timer >= stateMachine.ChaseTime)
         {
             playerPosition = stateMachine.GetPlayerPosition();
             float distance = (playerPosition - (Vector2)stateMachine.transform.position).magnitude;
             
-            if(distance > maxChaseDistance)
+            if(distance > stateMachine.MaxChaseDistance)
             {
                 stateMachine.ChangeState(typeof(ServantSpiderState_Hanging));
             }
@@ -57,30 +48,12 @@ public class ServantSpiderState_Chase : ServantSpiderState
         base.FixedExecute();
 
         // 移动到目标点
-        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, playerPosition, stateMachine.moveSpeed * Time.deltaTime));
+        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, playerPosition, stateMachine.MoveSpeed * Time.deltaTime));
     }
 
     private Vector2 CalculateTargetPosition(Vector2 playerPos, Vector2 currentPos, float chaseDistanceOffset)
     {
         Vector2 chaseVector = (playerPos - currentPos).normalized;
         return playerPos + chaseVector * chaseDistanceOffset;
-    }
-
-    public void Init(ServantSpiderState_Chase state)
-    {
-        this.animator = state.animator;
-        this.stateMachine = state.stateMachine;
-        this.chaseTime = state.chaseTime;
-        this.maxChaseDistance = state.maxChaseDistance;
-        this.chaseDistanceOffset = state.chaseDistanceOffset;
-    }
-
-    public override void PrintState()
-    {
-        Debug.Log(this.animator);
-        Debug.Log(this.stateMachine);
-        Debug.Log(this.chaseTime);
-        Debug.Log(this.maxChaseDistance);
-        Debug.Log(this.chaseDistanceOffset);
     }
 }

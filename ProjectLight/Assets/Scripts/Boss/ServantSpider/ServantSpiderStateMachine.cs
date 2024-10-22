@@ -3,8 +3,77 @@ using UnityEngine;
 
 public class ServantSpiderStateMachine : StateMachine
 {
-    [Header("Boss属性")]
-    public float moveSpeed;
+    [Header("Cocoon状态参数")]
+    [SerializeField 
+#if UNITY_EDITOR 
+    ,Label("孵化时间") 
+#endif
+    ]
+    private float cocoonTime;
+    public float CocoonTime => cocoonTime;
+
+    [SerializeField 
+#if UNITY_EDITOR 
+    ,Label("茧Spirte") 
+#endif
+    ]
+    public Sprite cocoonSprite;
+    [SerializeField
+#if UNITY_EDITOR
+    , Label("蜘蛛Sprite")
+#endif
+    ]
+    public Sprite spiderSprite;
+
+    [Header("Idle状态参数")]
+
+    [SerializeField 
+#if UNITY_EDITOR 
+    ,Label("待机时间") 
+#endif
+    ]
+    private float idleTime;
+    public float IdleTime => idleTime;
+    [SerializeField 
+#if UNITY_EDITOR 
+    ,Label("追击距离") 
+#endif
+    ]
+    private float chaseDistance;
+    public float ChaseDistance => chaseDistance;
+
+    [Header("Chase状态参数")]
+    [SerializeField 
+#if UNITY_EDITOR 
+    ,Label("追击速度") 
+#endif
+    ]
+    private float moveSpeed;
+    public float MoveSpeed => moveSpeed;
+    [SerializeField 
+#if UNITY_EDITOR 
+    ,Label("追击时间") 
+#endif
+    ]
+    private float chaseTime;
+    public float ChaseTime => chaseTime;
+    [SerializeField 
+#if UNITY_EDITOR 
+    ,Label("最大追击距离") 
+#endif
+    ]
+    private float maxChaseDistance;
+    public float MaxChaseDistance => maxChaseDistance;
+
+    [Header("Hanging状态参数")]
+    [SerializeField
+#if UNITY_EDITOR
+    , Label("攻击半径")
+#endif
+    ]
+    private float attackRadius;
+    public float AttackRadius => attackRadius;
+    
 
     [Header("状态机参数")]
     public Animator animator;

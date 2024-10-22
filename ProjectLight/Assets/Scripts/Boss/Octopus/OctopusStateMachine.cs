@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class OctopusStateMachine : StateMachine
 {
+    [Header("待机状态参数")]
+    [SerializeField, Label("待机时间")]
+    private float idleTime = 2f;
+
     [Header("状态机参数")]
     public Animator animator;
     public Rigidbody2D rb;

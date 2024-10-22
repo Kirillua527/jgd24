@@ -3,10 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "StateMachine/ServantSpiderState/Hanging", fileName = "ServantSpiderState_Hanging")]
 public class ServantSpiderState_Hanging : ServantSpiderState
 {
-    [SerializeField]
-    private float attackRadius;
-    public float AttackRadius => attackRadius;
-
     private Vector2 playerPosition;
 
     public override void Enter()
@@ -23,7 +19,7 @@ public class ServantSpiderState_Hanging : ServantSpiderState
         playerPosition = stateMachine.GetPlayerPosition();
         float distance = ((Vector2)stateMachine.transform.position - playerPosition).magnitude;
 
-        if(distance <= attackRadius)
+        if(distance <= stateMachine.AttackRadius)
         {
             stateMachine.transform.localScale = Vector3.one;
             stateMachine.ChangeState(typeof(ServantSpiderState_Idle));
@@ -33,14 +29,6 @@ public class ServantSpiderState_Hanging : ServantSpiderState
     public override void FixedExecute()
     {
         base.FixedExecute();
-        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, playerPosition, stateMachine.moveSpeed * Time.fixedDeltaTime));
+        stateMachine.rb.MovePosition(Vector2.MoveTowards(stateMachine.transform.position, playerPosition, stateMachine.MoveSpeed * Time.fixedDeltaTime));
     }
-
-    public void Init(ServantSpiderState_Hanging state)
-    {
-        this.animator = state.animator;
-        this.stateMachine = state.stateMachine;
-        this.attackRadius = state.attackRadius;
-    }
-
 }

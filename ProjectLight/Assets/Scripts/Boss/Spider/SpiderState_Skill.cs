@@ -16,7 +16,7 @@ public class SpiderState_Skill : SpiderState
     public override void Enter()
     {
         base.Enter();
-
+        stateMachine.UpdateServantAmount();
         skill = skillList[Random.Range(0, skillList.Count)];
     }
 

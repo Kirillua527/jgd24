@@ -1,35 +1,65 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class SpiderStateMachine : StateMachine
 {
     [Header("Boss属性")]
     [Header("Idle状态参数")]
-    [SerializeField]
+    [SerializeField
+#if UNITY_EDITOR
+    , Label("待机时间")
+#endif
+    ]
     private float idleTime = 0;
     public float IdleTime => idleTime;
     [Header("Move状态参数")]
-    [SerializeField]
+    [SerializeField
+#if UNITY_EDITOR
+    , Label("移动速度")
+#endif
+    ]
     private float moveSpeed = 0;
     public float MoveSpeed => moveSpeed;
-    [SerializeField]
+    [SerializeField
+#if UNITY_EDITOR
+    , Label("追击范围外径")
+#endif
+    ]
     private float targetAreaExternalRadius = 0;
     public float TargetAreaExternalRadius => targetAreaExternalRadius;
-    [SerializeField]
+    [SerializeField
+#if UNITY_EDITOR
+    , Label("追击范围内径")
+#endif
+    ]
     private float targetAreaInnerRadius = 0;
     public float TargetAreaInnerRadius => targetAreaInnerRadius;
-    [SerializeField]
+    [SerializeField
+#if UNITY_EDITOR
+    , Label("最小追击角度")
+#endif
+    ]
     private float minTargetAngle;
     public float MinTargetAngle => minTargetAngle;
-    [SerializeField]
+    [SerializeField
+#if UNITY_EDITOR
+    , Label("最大追击角度")
+#endif
+    ]
     private float maxTargetAngle;
     public float MaxTargetAngle => maxTargetAngle;
 
-    [Header("随从数量")]
+    [Header("随从参数")]
+    [SerializeField
+#if UNITY_EDITOR
+    , Label("最大随从数量")
+#endif
+    ]
     public int maxServantAmount;
 
 #if UNITY_EDITOR
-    [ReadOnly]
+    [ReadOnly, Label("当前随从数量")]
 #endif
     public int currentServantAmonut;
     
@@ -76,5 +106,12 @@ public class SpiderStateMachine : StateMachine
     public Vector2 GetPlayerPosition()
     {
         return GameObject.FindGameObjectWithTag("Player").transform.position;
+    }
+
+    public void UpdateServantAmount()
+    {
+        ServantSpiderStateMachine[] servants = FindObjectsByType<ServantSpiderStateMachine>(FindObjectsSortMode.None);
+
+        currentServantAmonut = servants.Length;
     }
 }

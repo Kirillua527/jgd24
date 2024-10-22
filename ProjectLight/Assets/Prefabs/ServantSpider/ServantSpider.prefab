@@ -126,7 +126,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9831366445fe548a5909c5635b893fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cocoonTime: 5
+  cocoonSprite: {fileID: -2135585597343286014, guid: eed45a33cd08446c8b88325cf82fc52f, type: 3}
+  spiderSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  idleTime: 5
+  chaseDistance: 2
   moveSpeed: 2
+  chaseTime: 5
+  maxChaseDistance: 4
+  attackRadius: 1
   animator: {fileID: 0}
   rb: {fileID: 0}
   sr: {fileID: 0}
@@ -148,4 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7423f20f4a17d468bb3c0b14362c642c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  servantSpiderState_Hanging: {fileID: 11400000, guid: d809ebf6a9b854c0485df54c07542f9b, type: 2}
+  stateMachine: {fileID: 6709297403136912115}
+  showIdleChaseRadius: 1
+  showChaseChaseRadius: 1
+  showAttackRadius: 1

@@ -3,14 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "StateMachine/ServantSpiderState/Idle", fileName = "ServantSpiderState_Idle")]
 public class ServantSpiderState_Idle : ServantSpiderState
 {
-    [SerializeField]
-    private float idleTime = 0;
-    public float IdleTime => idleTime;
-
-    [SerializeField]
-    private float chaseDistance = 0;
-    public float ChaseDistance => chaseDistance;
-
     [SerializeField
 #if UNITY_EDITOR
         , ReadOnly
@@ -30,11 +22,11 @@ public class ServantSpiderState_Idle : ServantSpiderState
         base.Execute();
         timer += Time.deltaTime;
 
-        if(timer >= IdleTime)
+        if(timer >= stateMachine.IdleTime)
         {
             Vector2 playerPos = stateMachine.GetPlayerPosition();
             float distance = (playerPos - (Vector2)stateMachine.transform.position).magnitude;
-            if(distance <= ChaseDistance)
+            if(distance <= stateMachine.ChaseDistance)
             {
                 stateMachine.ChangeState(typeof(ServantSpiderState_Chase));
             }
@@ -43,13 +35,5 @@ public class ServantSpiderState_Idle : ServantSpiderState
                 stateMachine.ChangeState(typeof(ServantSpiderState_Hanging));
             }
         }
-    }
-
-    public void Init(ServantSpiderState_Idle state)
-    {
-        this.animator = state.animator;
-        this.stateMachine = state.stateMachine;
-        this.idleTime = state.idleTime;
-        this.chaseDistance = state.chaseDistance;
     }
 }
