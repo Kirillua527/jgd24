@@ -9,11 +9,17 @@ public class Bomb : MonoBehaviour
     [SerializeField] private float     m_explosion_width = 0.5f;
     [SerializeField] private float     m_ray_visible_duration = 1.0f;
     [SerializeField] private int       m_ray_count_per_direction = 3;
+    // [SerializeField] private LayerMask m_ray_layer_mask;
+    [SerializeField] private string[] m_ray_layer_list;
     [SerializeField] private LayerMask m_ray_layer_mask;
 
     private float m_ray_spacing = 0.1f;
 
     //private LineRenderer[] m_line_renderers;
+    private void Awake()
+    {
+        m_ray_layer_mask = LayerMask.GetMask(m_ray_layer_list);
+    }
 
     private void Start()
     {

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, BulletDamage
-{   
-   
+{
     [SerializeField]
     private int health = 100;
     public int Health
@@ -24,6 +23,18 @@ public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, B
             }
         }
     }
+
+    [SerializeField]
+    public float bombDamageRate = 1.0f;
+
+    [SerializeField]
+    public float laserDamageRate = 1.0f;
+
+    [SerializeField]
+    public float bossDamageRate = 1.0f;
+
+    [SerializeField]
+    public float bulletDamageRate = 1.0f;
 
     [SerializeField]
     private float bombDamageProtectTime = 0.5f;
@@ -50,7 +61,7 @@ public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, B
     }
 
     public void FixedUpdate()
-    {   
+    {
         Debug.Log(Time.deltaTime);
         currentBombTime -= Time.deltaTime;
         currentLaserTime -= Time.deltaTime;
@@ -62,7 +73,7 @@ public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, B
     {
         if (currentBombTime <= 0)
         {
-            Health -= damage;
+            Health -= (int)(damage * bombDamageRate);
             currentBombTime = bombDamageProtectTime;
             OnHit();
         }
@@ -72,7 +83,7 @@ public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, B
     {
         if (currentLaserTime <= 0)
         {
-            Health -= damage;
+            Health -= (int)(damage * laserDamageRate);
             currentLaserTime = laserDamageProtectTime;
             OnHit();
         }
@@ -82,7 +93,7 @@ public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, B
     {
         if (currentBombTime <= 0)
         {
-            Health -= damage;
+            Health -= (int)(damage * bossDamageRate);
             currentBossTime = bossDamageProtectTime;
             OnHit();
         }
@@ -92,7 +103,7 @@ public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, B
     {
         if (currentBulletTime <= 0)
         {
-            Health -= damage;
+            Health -= (int)(damage * bulletDamageRate);
             currentBulletTime = bulletDamageProtectTime;
             OnHit();
         }

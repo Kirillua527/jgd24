@@ -23,6 +23,12 @@ public class BossOnHit : MonoBehaviour, BombDamage, LaserDamage
         }
     }
 
+     [SerializeField]
+    public float bombDamageRate = 1.0f;
+
+    [SerializeField]
+    public float laserDamageRate = 1.0f;
+
     [SerializeField]
     private float laserDamageProtectTime = 0.1f;
     private float currentLaserTime;
@@ -39,7 +45,7 @@ public class BossOnHit : MonoBehaviour, BombDamage, LaserDamage
 
     public void OnBombHit(int damage)
     {
-        Health -= damage;
+        Health -= (int)(damage * bombDamageRate);
         OnHit();
     }
 
@@ -47,7 +53,7 @@ public class BossOnHit : MonoBehaviour, BombDamage, LaserDamage
     {
         if (currentLaserTime <= 0)
         {
-            Health -= damage;
+             Health -= (int)(damage * laserDamageRate);
             currentLaserTime = laserDamageProtectTime;
             OnHit();
         }
