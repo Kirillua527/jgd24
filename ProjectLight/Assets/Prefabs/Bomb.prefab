@@ -50,6 +50,9 @@ MonoBehaviour:
   m_explosion_width: 1
   m_ray_visible_duration: 1
   m_ray_count_per_direction: 3
+  m_ray_layer_list:
+  - GameObject
+  - Player
   m_ray_layer_mask:
     serializedVersion: 2
     m_Bits: 8
