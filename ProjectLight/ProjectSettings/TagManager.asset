@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineConfiner
+  - Mirror
+  - Bomb
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,10 +17,10 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Bomb
+  - Mirror
+  - Box
   - 
   - 
   - 
