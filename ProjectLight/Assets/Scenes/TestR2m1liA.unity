@@ -260,6 +260,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Launcher
       objectReference: {fileID: 0}
+    - target: {fileID: 8171210220696821468, guid: 78f5f57a905b3744db693084d042e943, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -280,6 +284,7 @@ GameObject:
   - component: {fileID: 72383989}
   - component: {fileID: 72383990}
   - component: {fileID: 72383991}
+  - component: {fileID: 72383992}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -348,7 +353,7 @@ Transform:
   m_GameObject: {fileID: 72383984}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.47, y: -0.8, z: 0}
+  m_LocalPosition: {x: -5.23, y: 1.81, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -393,8 +398,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7206fcba3a4b58c4f807f26732e578a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_pause_panel: {fileID: 0}
+  m_ui_logic: {fileID: 0}
   m_input_movement: {x: 0, y: 0}
   m_speed: 5
+  m_speed_while_planting: 0
+  m_status: 0
 --- !u!58 &72383989
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -457,6 +466,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   servantSpiderState_Idle: {fileID: 11400000, guid: eb487a2493ab84eeba027d215e398d58, type: 2}
+--- !u!114 &72383992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72383984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430e6d60ed3354c68921c7436bd7b6ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombDamageProtectTime: 0.5
+  laserDamageProtectTime: 0.5
+  bossDamageProtectTime: 0.5
+  bulletDamageProtectTime: 0.5
 --- !u!1 &512122526
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &898116741
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -834,7 +859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1135032681
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5966,7 +5991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6642326841849904146, guid: e06a6f37c5b53ca47be099c2572ce4ec, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

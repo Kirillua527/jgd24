@@ -6,26 +6,26 @@ public class Box : MonoBehaviour, BombDamage
 {
 
     // Box是否可重生
-    public bool renewable = false; 
+     [SerializeField] public bool renewable = false; 
 
     // 掉落物Prefab
     public GameObject dropItemPrefab;
 
     // 破坏动画
-    public GameObject boxExplodePrefab;
+    public GameObject boxExplodeAnimPrefab;
 
     // Box血量
-    private int Health = 1; 
-    public int health
+    private int health = 1; 
+    public int Health
     {   
         get
         {
-            return Health;
+            return health;
         }
         set
         {
-            Health = value;
-            if(Health<=0)
+            health = value;
+            if(health<=0)
             {
                 // Box毁坏
                 BoxDestored();
@@ -42,18 +42,22 @@ public class Box : MonoBehaviour, BombDamage
     private SpriteRenderer m_sprite;
     public List<Sprite> spriteList;
 
-    public void Start()
+    public virtual void Start()
     {
         m_sprite = GetComponent<SpriteRenderer>();
         m_collider = GetComponent<Collider2D>();
 
     }
 
+
+    // 伤害挂载
     // BombDamage接口
-    public void OnHit(int damage)
+    public void OnBombHit(int damage)
     {
-        health -= 1; // 具体伤害由damage折算
+        Health -= 1; // 具体伤害由damage折算
     }
+
+
 
     // Box毁坏
     public void BoxDestored()
@@ -64,8 +68,9 @@ public class Box : MonoBehaviour, BombDamage
         // Box被完全破坏
         if(renewable)
         {   
+            Debug.Log("renewable");
             // 被破坏动画
-            GameObject newBoxExplode =  Instantiate(boxExplodePrefab, transform.position, Quaternion.identity);
+            GameObject newBoxExplodeAim =  Instantiate(boxExplodeAnimPrefab, transform.position, Quaternion.identity);
 
             // 可重生Box
             m_sprite.sprite = spriteList[1]; // 更改贴图
@@ -76,7 +81,8 @@ public class Box : MonoBehaviour, BombDamage
        }
        else
         {   
-            GameObject newBoxExplode =  Instantiate(boxExplodePrefab, transform.position, Quaternion.identity);
+            Debug.Log("not renewable");
+            GameObject newBoxExplodeAim =  Instantiate(boxExplodeAnimPrefab, transform.position, Quaternion.identity);
             CreateDropItem();
             Destroy(gameObject);
         }
@@ -95,7 +101,6 @@ public class Box : MonoBehaviour, BombDamage
         DropItem newDropItemScript = newDropItem.GetComponent<DropItem>();
         newDropItemScript.InitItem(ItemID);
         
-        // todo: 如果需要销毁当前格中道具，将新生成的道具父物体设置为当前box？ 在线等一个策划案
         if(renewable)
         {
             newDropItem.transform.SetParent(transform);
@@ -103,9 +108,15 @@ public class Box : MonoBehaviour, BombDamage
     }
 
 
-    public void BoxRespawn()
+    public virtual void BoxRespawn()
     {   
-        // 销毁全部子物体
+    Debug.Log("Parent BoxRespawn");
+       BoxInit();
+    }
+    
+    public void BoxInit()
+    {
+         // 销毁全部子物体
         Transform[] children = GetComponentsInChildren<Transform>();
         foreach (Transform child in children)
         {
@@ -118,5 +129,6 @@ public class Box : MonoBehaviour, BombDamage
         m_sprite.sprite = spriteList[0]; // 更改贴图
         m_collider.enabled = true; // 开启碰撞检测
     }
-        
+
+
 }
