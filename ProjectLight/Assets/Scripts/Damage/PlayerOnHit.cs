@@ -62,7 +62,6 @@ public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, B
 
     public void FixedUpdate()
     {
-        Debug.Log(Time.deltaTime);
         currentBombTime -= Time.deltaTime;
         currentLaserTime -= Time.deltaTime;
         currentBossTime -= Time.deltaTime;
