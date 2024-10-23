@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8090122043248374448}
   - component: {fileID: 1123213704893091941}
   - component: {fileID: 3943057742598967982}
+  - component: {fileID: 6321515746929434457}
   m_Layer: 11
   m_Name: Spider
   m_TagString: Untagged
@@ -102,11 +103,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleTime: 2
   moveSpeed: 5
-  targetAreaExternalRadius: 0
-  targetAreaInnerRadius: 0
-  minTargetAngle: 0
-  maxTargetAngle: 0
-  maxServantAmount: 2
+  targetAreaExternalRadius: 3
+  targetAreaInnerRadius: 4
+  minTargetAngle: 30
+  maxTargetAngle: 180
+  maxServantAmount: 6
   currentServantAmonut: 0
   animator: {fileID: 0}
   rb: {fileID: 0}
@@ -114,6 +115,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4661eaeb0cedbbd44b60dc9518032cb7, type: 2}
   - {fileID: 11400000, guid: 95527a240b75875498069249bbb01f62, type: 2}
   - {fileID: 11400000, guid: 711b0a89425084c7b8fd7fadabc67b51, type: 2}
+  - {fileID: 11400000, guid: 95527a240b75875498069249bbb01f62, type: 2}
+  - {fileID: 11400000, guid: 96ee094defe621749928b85a8b8c16ce, type: 2}
+  - {fileID: 11400000, guid: 26e8f5a46e5e5d44e95adb106dc9b00c, type: 2}
 --- !u!50 &8090122043248374448
 Rigidbody2D:
   serializedVersion: 4
@@ -192,3 +196,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &6321515746929434457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5338319636300714571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d8c61fc85a51404aa2725cc9b9a5f65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachine: {fileID: 5824706029707694627}
+  idleTimer: 0
+  showMoveRange: 0
+  showSnipeDirection: 0
+  SnipeSO: {fileID: 11400000, guid: 588d4efe79bddac47a3999da121e5a0e, type: 2}
+  SnipeLineColor: {r: 1, g: 0, b: 0, a: 1}
+  SnipeLineLength: 3
+  showOctoShotDirection: 0
+  OctoShotSO: {fileID: 11400000, guid: 1426e4305dec56a428e15f8ac0e0c83c, type: 2}
+  OctoShotLineColor: {r: 0.9685534, g: 0, b: 0, a: 1}
+  OctoShotLineLength: 3

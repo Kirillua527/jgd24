@@ -157,6 +157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 6709297403136912115}
-  showIdleChaseRadius: 1
-  showChaseChaseRadius: 1
-  showAttackRadius: 1
+  showIdleChaseRadius: 0
+  idleChaseRadiusColor: {r: 0, g: 1, b: 0, a: 1}
+  showCahseChaseRadius: 0
+  chaseChaseRadiusColor: {r: 0, g: 0, b: 1, a: 1}
+  showAttackRadius: 0
+  attackRadiusColor: {r: 1, g: 0, b: 0, a: 1}

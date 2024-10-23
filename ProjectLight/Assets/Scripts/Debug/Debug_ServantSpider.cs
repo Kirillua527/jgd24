@@ -1,7 +1,7 @@
 using UnityEditor.Search;
 using UnityEngine;
 
-public class Debug_ServantSpiderAttackRadius : MonoBehaviour
+public class Debug_ServantSpider : MonoBehaviour
 {
     public ServantSpiderStateMachine stateMachine;
 
@@ -15,31 +15,46 @@ public class Debug_ServantSpiderAttackRadius : MonoBehaviour
 #endif
     public bool showIdleChaseRadius = true;
 
+    #if UNITY_EDITOR
+    [Label("Idle时追击范围线框颜色"), ReadOnlyIfFalse("showIdleChaseRadius")]
+#endif
+    public Color idleChaseRadiusColor = Color.green;
+
 #if UNITY_EDITOR
     [Label("显示Chase时追击范围")]
 #endif
-    public bool showChaseChaseRadius = true;
+    public bool showCahseChaseRadius = true;
 
 #if UNITY_EDITOR
-    [Label("显示攻击范围")]
+    [Label("Cahse时追击范围线框颜色"), ReadOnlyIfFalse("showCahseChaseRadius")]
+#endif
+    public Color chaseChaseRadiusColor = Color.blue;
+
+#if UNITY_EDITOR
+    [Label("显示下砸攻击范围")]
 #endif
     public bool showAttackRadius = true;
+
+#if UNITY_EDITOR
+    [Label("下砸攻击范围线框颜色"), ReadOnlyIfFalse("showAttackRadius")]
+#endif
+    public Color attackRadiusColor = Color.red;
 
     public void OnDrawGizmos()
     {
         if(showIdleChaseRadius)
         {
-            Gizmos.color = Color.green;
+            Gizmos.color = idleChaseRadiusColor;
             Gizmos.DrawWireSphere(transform.position,stateMachine.ChaseDistance);
         }
-        if(showChaseChaseRadius)
+        if(showCahseChaseRadius)
         {
-            Gizmos.color = Color.blue;
+            Gizmos.color = chaseChaseRadiusColor;
             Gizmos.DrawWireSphere(transform.position,stateMachine.MaxChaseDistance);
         }
         if(showAttackRadius)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = attackRadiusColor;
             Gizmos.DrawWireSphere(transform.position,stateMachine.AttackRadius);
         }
     }

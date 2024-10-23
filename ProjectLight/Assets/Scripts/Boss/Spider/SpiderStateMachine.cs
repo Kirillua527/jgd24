@@ -1,6 +1,14 @@
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+
+public enum SpiderStateType
+{
+    Idle,
+    Move,
+    Skill
+}
 
 public class SpiderStateMachine : StateMachine
 {
@@ -13,6 +21,7 @@ public class SpiderStateMachine : StateMachine
     ]
     private float idleTime = 0;
     public float IdleTime => idleTime;
+
     [Header("Move状态参数")]
     [SerializeField
 #if UNITY_EDITOR
@@ -71,6 +80,9 @@ public class SpiderStateMachine : StateMachine
     public LinkedList<SpiderState> stateList = new LinkedList<SpiderState>();
     public LinkedListNode<SpiderState> nextState;
 
+    private SpiderStateType currentStateType;
+    public SpiderStateType CurrentStateType => currentStateType;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -113,5 +125,10 @@ public class SpiderStateMachine : StateMachine
         ServantSpiderStateMachine[] servants = FindObjectsByType<ServantSpiderStateMachine>(FindObjectsSortMode.None);
 
         currentServantAmonut = servants.Length;
+    }
+
+    public void SetCurrentStateType(SpiderStateType type)
+    {
+        currentStateType = type;
     }
 }

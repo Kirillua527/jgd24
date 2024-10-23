@@ -13,16 +13,15 @@ public class SpiderState_Skill : SpiderState
         ]
     private Skill skill;
 
+    private float timer = 0;
+
     public override void Enter()
     {
         base.Enter();
+        timer = 0;
+        stateMachine.SetCurrentStateType(SpiderStateType.Skill);
         stateMachine.UpdateServantAmount();
         skill = skillList[Random.Range(0, skillList.Count)];
-    }
-
-    public override void Execute()
-    {
-        base.Execute();
 
         if (skill != null)
         {
@@ -55,7 +54,16 @@ public class SpiderState_Skill : SpiderState
                 }
             }
         }
-        
-        stateMachine.GoToNextState();
+    }
+
+    public override void Execute()
+    {
+        base.Execute();
+        timer += Time.deltaTime;
+
+        if (timer >= 1)
+        {
+            stateMachine.GoToNextState();
+        }
     }
 }

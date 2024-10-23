@@ -14,6 +14,7 @@ public class SpiderState_Move : SpiderState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.SetCurrentStateType(SpiderStateType.Move);
         playerPos = stateMachine.GetPlayerPosition();
         Vector2 currentPos = stateMachine.transform.position;
 
