@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, BulletDamage
@@ -52,12 +51,20 @@ public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, B
     private float bulletDamageProtectTime = 0.5f;
     private float currentBulletTime;
 
+    private Animator m_animator = null;
+    private Action m_on_hit_action = null;
+
     void Awake()
     {
         currentBombTime = 0;
         currentLaserTime = 0;
         currentBossTime = 0;
         currentBulletTime = 0;
+    }
+
+    private void Start()
+    {
+        m_animator = GetComponentInChildren<Animator>();
     }
 
     public void FixedUpdate()
@@ -108,8 +115,14 @@ public class PlayerOnHit : MonoBehaviour, BombDamage, LaserDamage, BossDamage, B
         }
     }
 
+    public void SetOnHitAction(Action action)
+    {
+        m_on_hit_action = action;
+    }
+
     public void OnHit()
     {
-        Debug.Log("TODO: OnHit Animation");
+        m_animator.SetTrigger("Hit");
+        m_on_hit_action?.Invoke();
     }
 }
