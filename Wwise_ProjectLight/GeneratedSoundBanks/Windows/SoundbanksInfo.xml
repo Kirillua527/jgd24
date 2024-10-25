@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
+	<RootPaths>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{B6CBD692-12EC-CDBA-0932-48F63C40C91F}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+		</SoundBank>
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{9D4AC458-BFDA-2A4C-9D4E-C98CAD5AB542}">
+			<ShortName>Main</ShortName>
+			<Path>Main.bnk</Path>
+			<Media>
+				<File Id="189487169" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footstep_02.wav</ShortName>
+					<CachePath>SFX/Footstep_02_818F3B66.wem</CachePath>
+				</File>
+				<File Id="293102080" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footstep_03.wav</ShortName>
+					<CachePath>SFX/Footstep_03_818F3B66.wem</CachePath>
+				</File>
+				<File Id="307342716" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footstep_05.wav</ShortName>
+					<CachePath>SFX/Footstep_05_818F3B66.wem</CachePath>
+				</File>
+				<File Id="450905131" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footstep_06.wav</ShortName>
+					<CachePath>SFX/Footstep_06_818F3B66.wem</CachePath>
+				</File>
+				<File Id="578068760" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footstep_04.wav</ShortName>
+					<CachePath>SFX/Footstep_04_818F3B66.wem</CachePath>
+				</File>
+				<File Id="629957731" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footstep_01.wav</ShortName>
+					<CachePath>SFX/Footstep_01_818F3B66.wem</CachePath>
+				</File>
+				<File Id="659974253" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>bomb_explosion.wav</ShortName>
+					<CachePath>SFX/bomb_explosion_818F3B66.wem</CachePath>
+				</File>
+				<File Id="961402630" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>ui_button.wav</ShortName>
+					<CachePath>SFX/ui_button_818F3B66.wem</CachePath>
+				</File>
+				<File Id="1058791541" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>bomb_place.wav</ShortName>
+					<CachePath>SFX/bomb_place_818F3B66.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="4166525010" Name="Play_bomb_explosion" DurationType="OneShot" DurationMin="1" DurationMax="1">
+					<MediaRefs>
+						<MediaRef Id="659974253"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3175281290" Name="Play_bomb_place" DurationType="OneShot" DurationMin="0.25" DurationMax="0.25">
+					<MediaRefs>
+						<MediaRef Id="1058791541"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3854155799" Name="Play_Footsteps" DurationType="OneShot" DurationMin="0.2471285" DurationMax="0.25290486">
+					<MediaRefs>
+						<MediaRef Id="189487169"/>
+						<MediaRef Id="293102080"/>
+						<MediaRef Id="307342716"/>
+						<MediaRef Id="450905131"/>
+						<MediaRef Id="578068760"/>
+						<MediaRef Id="629957731"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="43599987" Name="Play_ui_button" DurationType="OneShot" DurationMin="0.12498866" DurationMax="0.12498866">
+					<MediaRefs>
+						<MediaRef Id="961402630"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{1F726110-7B0C-8CF1-94FE-5DC1B825348F}</FileHash>
+</SoundBanksInfo>

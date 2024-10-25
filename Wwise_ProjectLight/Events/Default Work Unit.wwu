@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{3556FD1C-EDB6-4E33-9F07-72A686333081}" SchemaVersion="119">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{3556FD1C-EDB6-4E33-9F07-72A686333081}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{3556FD1C-EDB6-4E33-9F07-72A686333081}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_ui_button" ID="{2D0F962C-4C13-47C5-B123-71F928E3E830}">
+					<ChildrenList>
+						<Action Name="" ID="{48BB06E1-11DB-45AD-B2AB-1FC6FA72519E}" ShortID="232161653">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ui_button" ID="{999F13C5-1196-49D0-94E0-C3DFFFCE0839}" WorkUnitID="{C98133B8-E4C4-4876-833E-5E3C42271831}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_bomb_place" ID="{1C9E99C2-4109-4B62-8B21-EF47E880F366}">
+					<ChildrenList>
+						<Action Name="" ID="{B9197FB4-6803-4ED0-8CFE-A34EC0E3B5EF}" ShortID="696063733">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="bomb_place" ID="{CCE5BB22-0569-4613-872F-3F2601F16F4A}" WorkUnitID="{C98133B8-E4C4-4876-833E-5E3C42271831}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Footsteps" ID="{4AE22809-DA0C-45E5-AC4B-0AEDA160730C}">
+					<ChildrenList>
+						<Action Name="" ID="{9099CC4E-516C-41CF-BF32-8FCDD12D386D}" ShortID="1067898728">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Footsteps" ID="{12B73D89-726A-4594-A74B-1D0F4C24FAAA}" WorkUnitID="{C98133B8-E4C4-4876-833E-5E3C42271831}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_little_spider_footsteps" ID="{296A0625-B363-46A0-ADDE-46472D5FB916}">
+					<ChildrenList>
+						<Action Name="" ID="{C0ABA82F-CF10-4D45-BDEE-4D352BBB1DB9}" ShortID="420536577">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="little_spider_footsteps" ID="{4C1AFC9C-CB71-4C2F-B1BF-FCE7DF347791}" WorkUnitID="{C98133B8-E4C4-4876-833E-5E3C42271831}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>

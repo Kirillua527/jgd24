@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{4BEDC613-427D-47D0-9AEE-B5E7C7DB8AE0}" SchemaVersion="119">
 	<SoundBanks>
-		<WorkUnit Name="Default Work Unit" ID="{4BEDC613-427D-47D0-9AEE-B5E7C7DB8AE0}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{4BEDC613-427D-47D0-9AEE-B5E7C7DB8AE0}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="Main" ID="{8206F5CB-D557-4FFA-88E8-CF9FF20466E1}">
+					<ObjectInclusionList>
+						<ObjectRef Name="Play_Footsteps" ID="{4AE22809-DA0C-45E5-AC4B-0AEDA160730C}" WorkUnitID="{3556FD1C-EDB6-4E33-9F07-72A686333081}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_ui_button" ID="{2D0F962C-4C13-47C5-B123-71F928E3E830}" WorkUnitID="{3556FD1C-EDB6-4E33-9F07-72A686333081}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_bomb_explosion" ID="{1929AD37-D12A-48FF-B2C0-91FC06078308}" WorkUnitID="{3556FD1C-EDB6-4E33-9F07-72A686333081}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_bomb_place" ID="{1C9E99C2-4109-4B62-8B21-EF47E880F366}" WorkUnitID="{3556FD1C-EDB6-4E33-9F07-72A686333081}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
 	</SoundBanks>
 </WwiseDocument>
